@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chunk Of Green Cafe | Speciality Coffee & Brunch · Southgate London N14</title>
+<meta name="description" content="Chunk Of Green is Southgate's neighbourhood café. Allpress espresso, full English, eggs Benedict, grilled chicken, homemade cakes. Mon–Fri 7am–4pm · 25 Ashfield Parade N14 5EH." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --moss:   #1A2F23;
+  --almond: #FDFBF7;
+  --copper: #4A6741;
+  --deep:   #0D1A10;
+  --char:   #0A0F0B;
+  --sage:   #C8D9C2;
+  --cream:  #F3EDE2;
+  --line:   rgba(26,47,35,.12);
+  --ease:   cubic-bezier(.23,1,.32,1);
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'Hanken Grotesk',sans-serif;
+  background:var(--almond);
+  color:var(--moss);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;border:none;background:none;font:inherit}
+img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* ── NAV ── */
+.nav{
+  position:fixed;top:0;left:0;width:100%;
+  padding:22px 5vw;
+  display:flex;justify-content:space-between;align-items:center;
+  z-index:200;
+  transition:background .5s var(--ease),padding .5s var(--ease),border-color .5s;
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{
+  background:rgba(253,251,247,.95);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  padding:14px 5vw;
+  border-color:var(--line);
+}
+.nav-logo{
+  font-family:'Instrument Serif',serif;
+  font-size:1.15rem;letter-spacing:-.01em;
+  color:var(--almond);transition:color .5s;
+}
+.nav.scrolled .nav-logo{color:var(--moss)}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{
+  font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(253,251,247,.8);transition:color .5s;
+}
+.nav.scrolled .nav-links a{color:var(--moss)}
+.nav-links a:hover{color:var(--copper)!important}
+.nav-cta{
+  font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--copper);color:var(--almond);
+  padding:9px 18px;border-radius:999px;
+  transition:background .4s,transform .4s var(--ease);
+}
+.nav-cta:hover{background:var(--moss);transform:translateY(-2px)}
+
+/* hamburger */
+.nav-burger{
+  display:none;
+  flex-direction:column;gap:5px;
+  width:28px;cursor:pointer;padding:4px;
+}
+.nav-burger span{
+  display:block;height:2px;background:var(--almond);
+  border-radius:2px;transition:background .5s, transform .3s, opacity .3s;
+}
+.nav.scrolled .nav-burger span{background:var(--moss)}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-burger.open span:nth-child(2){opacity:0}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* mobile drawer */
+.mobile-menu{
+  display:none;
+  position:fixed;inset:0;top:0;
+  background:var(--deep);
+  z-index:190;
+  flex-direction:column;
+  justify-content:center;align-items:center;
+  gap:36px;
+  opacity:0;transform:translateY(-10px);
+  transition:opacity .4s var(--ease),transform .4s var(--ease);
+}
+.mobile-menu.open{opacity:1;transform:none}
+.mobile-menu a{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(2.2rem,8vw,3.5rem);
+  color:var(--almond);letter-spacing:-.02em;
+}
+.mobile-menu a:hover{color:var(--sage)}
+.mobile-menu .m-sub{
+  font-size:.8rem;font-family:'Hanken Grotesk',sans-serif;
+  font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(253,251,247,.5);margin-top:4px;text-align:center;
+}
+
+/* ── HERO ── */
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  overflow:hidden;
+  background:var(--deep);
+}
+
+.hero-copy{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding:clamp(90px,11vh,130px) clamp(24px,5vw,60px) clamp(32px,5vh,56px);
+  background:var(--deep);
+}
+
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:.7rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--sage);width:fit-content;
+}
+.hero-eyebrow::before{
+  content:"";width:32px;height:1px;background:var(--copper);flex-shrink:0;
+}
+
+.hero-title{
+  font-family:'Instrument Serif',serif;font-weight:400;
+  font-size:clamp(4.5rem,10.5vw,11.5rem);
+  line-height:.85;letter-spacing:-.05em;
+  text-transform:uppercase;color:var(--almond);
+  margin:auto 0;
+}
+.hero-title em{
+  display:block;margin-left:.45em;font-style:italic;
+  text-transform:none;letter-spacing:-.04em;color:var(--sage);
+}
+
+.hero-rating{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  padding:16px 0;border-top:1px solid rgba(255,255,255,.1);
+}
+.stars{color:#E8C84A;font-size:.85rem;letter-spacing:2px}
+.rating-text{font-size:.78rem;color:rgba(253,251,247,.65)}
+.rating-text strong{color:var(--almond)}
+.rdiv{width:1px;height:16px;background:rgba(255,255,255,.15);flex-shrink:0}
+
+.hero-bottom{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:20px;
+  padding-top:24px;border-top:1px solid rgba(255,255,255,.1);
+}
+.hero-tagline{
+  font-size:clamp(.95rem,1.3vw,1.1rem);
+  color:rgba(253,251,247,.65);max-width:380px;line-height:1.45;
+}
+.hero-tagline strong{color:var(--almond);font-weight:700}
+
+.cta-circle{
+  flex-shrink:0;
+  width:clamp(110px,11vw,148px);height:clamp(110px,11vw,148px);
+  border-radius:50%;background:var(--copper);color:var(--almond);
+  display:grid;place-items:center;text-align:center;
+  font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  transition:transform .7s var(--ease),background .5s;line-height:1.35;
+}
+.cta-circle:hover{background:var(--almond);color:var(--moss);transform:scale(1.08) rotate(9deg)}
+
+/* ── HERO MOSAIC ── */
+.hero-visual{
+  position:relative;z-index:1;
+  display:grid;
+  grid-template-rows:1fr 1fr;
+  grid-template-columns:1fr 1fr;
+  gap:2px;background:var(--char);
+}
+.hero-panel{position:relative;overflow:hidden}
+.hero-panel img{
+  width:100%;height:100%;object-fit:cover;
+  filter:brightness(.82) saturate(1.15);
+  will-change:transform;
+  transition:filter .6s;
+}
+.hero-panel:hover img{filter:brightness(.94) saturate(1.2)}
+.hero-panel.tall{grid-row:span 2}
+
+.hero-badge{
+  position:absolute;bottom:18px;left:18px;
+  background:rgba(10,15,11,.65);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:12px;padding:10px 14px;
+  color:var(--almond);font-size:.7rem;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;line-height:1.4;
+}
+
+.live-chip{
+  position:absolute;top:16px;right:16px;
+  display:inline-flex;align-items:center;gap:7px;
+  padding:8px 13px;border-radius:999px;
+  background:rgba(10,15,11,.75);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.15);
+  font-size:.67rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--almond);z-index:5;
+}
+.live-dot{
+  width:8px;height:8px;border-radius:50%;background:#9FE870;
+  box-shadow:0 0 0 4px rgba(159,232,112,.2);
+  animation:pulse 2s infinite;
+}
+.live-chip.closed .live-dot{background:#D98B6B;box-shadow:0 0 0 4px rgba(217,139,107,.2);animation:none}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(159,232,112,.2)}50%{box-shadow:0 0 0 8px rgba(159,232,112,.05)}}
+
+/* ── TICKER ── */
+.ticker-wrap{
+  background:var(--moss);color:var(--almond);
+  overflow:hidden;white-space:nowrap;padding:13px 0;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.ticker-inner{display:inline-block;animation:ticker 40s linear infinite;white-space:nowrap}
+.ticker-inner span{
+  font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  margin-right:52px;
+}
+.ticker-inner span em{font-style:normal;color:var(--sage);margin:0 6px}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── REVIEWS ── */
+.reviews{
+  padding:clamp(48px,8vw,88px) clamp(20px,5vw,60px);
+  display:grid;grid-template-columns:280px 1fr;gap:5vw;align-items:start;
+  border-bottom:1px solid var(--line);
+}
+.reviews-headline{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(2.2rem,3.5vw,3.8rem);
+  line-height:.95;letter-spacing:-.03em;
+}
+.reviews-headline em{font-style:italic;color:var(--copper)}
+.score-block{display:flex;align-items:baseline;gap:8px;margin-top:16px}
+.score-num{
+  font-family:'Instrument Serif',serif;
+  font-size:4.5rem;line-height:1;letter-spacing:-.04em;
+}
+.score-meta{font-size:.8rem;opacity:.65;line-height:1.5}
+.ranking-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:18px;background:var(--cream);
+  border-radius:12px;padding:10px 14px;
+  font-size:.72rem;font-weight:700;line-height:1.35;
+}
+
+.review-cards{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+}
+.review-card{
+  background:var(--cream);border-radius:18px;padding:22px 20px;
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease);
+}
+.review-card:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(18,14,11,.09)}
+.review-stars{color:#E8C84A;font-size:.8rem;margin-bottom:10px}
+.review-quote{font-size:.95rem;line-height:1.55;margin-bottom:12px}
+.review-author{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.55}
+.review-source{font-size:.67rem;opacity:.38;text-transform:uppercase;letter-spacing:.06em;margin-top:3px}
+
+/* ── INFO STRIP ── */
+.info-strip{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--line);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.info-cell{background:var(--almond);padding:clamp(28px,4vw,48px) clamp(20px,3vw,36px)}
+.info-cell-label{
+  font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--copper);margin-bottom:12px;
+}
+.info-cell-value{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(1.4rem,2vw,2.1rem);
+  line-height:1.1;letter-spacing:-.025em;
+}
+.info-cell-sub{font-size:.85rem;opacity:.55;margin-top:5px;line-height:1.4}
+
+/* ── MENU ── */
+.menu-section{padding:clamp(48px,8vw,88px) clamp(20px,5vw,60px);border-bottom:1px solid var(--line)}
+.section-eyebrow{
+  display:flex;align-items:center;gap:12px;
+  font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--copper);margin-bottom:24px;
+}
+.section-eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+.menu-header{
+  display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px;margin-bottom:40px;
+}
+.section-title{
+  font-family:'Instrument Serif',serif;font-weight:400;
+  font-size:clamp(2.8rem,5.5vw,5.5rem);
+  line-height:.92;letter-spacing:-.04em;
+}
+.menu-intro{font-size:.95rem;opacity:.65;max-width:300px;text-align:right;line-height:1.5}
+
+.menu-tabs{
+  display:flex;gap:4px;flex-wrap:wrap;
+  margin-bottom:0;
+  border-bottom:1px solid var(--line);
+}
+.menu-tab{
+  font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  padding:9px 14px 11px;border-radius:6px 6px 0 0;
+  color:rgba(26,47,35,.45);transition:color .3s;
+  cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;
+}
+.menu-tab.active{color:var(--moss);border-bottom-color:var(--copper)}
+.menu-tab:hover{color:var(--copper)}
+
+.menu-panel{display:none}
+.menu-panel.active{display:block}
+
+.ledger{border-top:1px solid var(--moss)}
+.ledger-row{
+  display:grid;
+  grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) 100px;
+  gap:24px;padding:20px 0;
+  border-bottom:1px solid var(--line);
+  transition:padding .4s var(--ease),border-color .4s;
+  cursor:default;
+}
+.ledger-row:hover{padding-left:14px;border-color:rgba(26,47,35,.35)}
+.ledger-row.category-head{grid-template-columns:1fr;padding:32px 0 6px;border-bottom:none}
+.category-label{font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--copper)}
+.item-name{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(1.35rem,2.2vw,2.2rem);
+  line-height:1.05;letter-spacing:-.022em;
+  align-self:center;
+}
+.item-note{align-self:center;font-size:.85rem;opacity:.6;line-height:1.4}
+.item-price{
+  align-self:center;text-align:right;
+  font-size:.95rem;font-weight:800;font-variant-numeric:tabular-nums;
+}
+.badge{
+  display:inline-block;font-size:.58rem;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:2px 7px;border-radius:99px;
+  margin-left:7px;vertical-align:middle;
+}
+.badge-vg{background:rgba(74,103,65,.12);color:var(--copper)}
+.badge-h{background:rgba(0,100,70,.1);color:#005c44}
+.badge-new{background:rgba(180,60,30,.1);color:#a03015}
+.badge-pop{background:rgba(180,140,50,.15);color:#7a6010}
+
+/* ── VISIT ── */
+.visit{padding:clamp(48px,8vw,88px) clamp(20px,5vw,60px)}
+.visit-shell{
+  display:grid;grid-template-columns:.9fr 1.1fr;
+  min-height:68vh;border-radius:28px;overflow:hidden;
+  background:var(--moss);box-shadow:0 32px 80px rgba(10,15,11,.2);
+}
+.visit-info{
+  padding:clamp(32px,5vw,64px);
+  display:flex;flex-direction:column;justify-content:space-between;
+  color:var(--almond);
+}
+.visit-info h2{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(2.8rem,4.5vw,5rem);
+  line-height:.92;letter-spacing:-.04em;margin-bottom:32px;
+}
+.visit-lines{display:grid;gap:16px;font-size:1rem}
+.visit-lines a{
+  display:inline-block;
+  border-bottom:1px solid rgba(255,255,255,.25);transition:border-color .3s;
+}
+.visit-lines a:hover{border-color:var(--sage)}
+.amenities{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+.amenity{
+  font-size:.65rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  padding:5px 10px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.72);
+}
+.delivery-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+.delivery-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.68rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18);
+  border-radius:9px;padding:7px 13px;color:rgba(255,255,255,.78);
+}
+.visit-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  height:48px;padding:0 18px;border-radius:999px;
+  font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  transition:transform .4s var(--ease),background .4s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-light{background:var(--almond);color:var(--moss)}
+.btn-outline{border:1px solid rgba(255,255,255,.25);color:var(--almond)}
+.btn-outline:hover{background:rgba(255,255,255,.09)}
+
+.visit-visual{position:relative;overflow:hidden}
+.visit-visual img{width:100%;height:100%;object-fit:cover;filter:brightness(.75) saturate(1.15)}
+.visit-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(8,16,10,.75) 0%,transparent 65%);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:clamp(24px,4vw,44px);color:var(--almond);
+}
+.visit-overlay blockquote{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(1.4rem,2.2vw,2.4rem);
+  line-height:1.2;letter-spacing:-.02em;font-style:italic;max-width:400px;
+}
+.visit-overlay cite{
+  display:block;margin-top:12px;font-size:.7rem;font-style:normal;
+  font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.65;
+}
+
+/* ── FOOTER ── */
+.footer{
+  padding:24px clamp(20px,5vw,60px);
+  display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;
+  border-top:1px solid var(--moss);
+  font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+}
+.footer-right{display:flex;gap:24px;flex-wrap:wrap}
+.footer a:hover{color:var(--copper)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1080px){
+  .review-cards{grid-template-columns:1fr 1fr}
+  .info-strip{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+
+  .hero{grid-template-columns:1fr;min-height:100svh}
+  .hero-visual{
+    order:-1;height:52vw;min-height:280px;
+    grid-template-columns:1fr 1fr;grid-template-rows:1fr;
+  }
+  .hero-panel.tall{grid-row:auto}
+  .hero-copy{padding:80px 5vw 32px}
+  .hero-bottom{flex-direction:column;align-items:flex-start}
+  .cta-circle{display:none}
+  .hero-title{font-size:clamp(4rem,16vw,7rem)}
+
+  .reviews{grid-template-columns:1fr}
+  .review-cards{grid-template-columns:1fr}
+
+  .menu-header{grid-template-columns:1fr}
+  .menu-intro{text-align:left;max-width:100%}
+  .ledger-row{grid-template-columns:1fr auto;gap:12px}
+  .item-note{display:none}
+  .ledger-row:hover{padding-left:10px}
+
+  .info-strip{grid-template-columns:1fr 1fr}
+
+  .visit-shell{grid-template-columns:1fr}
+  .visit-visual{min-height:52vw;order:-1}
+
+  .menu-tabs{gap:2px}
+  .menu-tab{font-size:.64rem;padding:8px 10px 10px}
+}
+
+@media(max-width:480px){
+  .info-strip{grid-template-columns:1fr}
+  .hero-visual{height:65vw}
+  .review-cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <a class="nav-logo" href="#top">Chunk Of Green</a>
+  <nav class="nav-links" aria-label="Main navigation">
+    <a href="#reviews">Reviews</a>
+    <a href="#menu">Menu</a>
+    <a href="#visit">Visit</a>
+    <a class="nav-cta" href="https://www.instagram.com/chunkofgreen/" target="_blank" rel="noopener">Instagram</a>
+  </nav>
+  <button class="nav-burger" id="burger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <a href="#reviews" class="m-link">Reviews</a>
+  <a href="#menu" class="m-link">Menu</a>
+  <a href="#visit" class="m-link">Visit</a>
+  <a href="https://www.instagram.com/chunkofgreen/" target="_blank" rel="noopener" class="m-link">Instagram</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top" aria-label="Chunk Of Green Cafe">
+
+  <div class="hero-copy">
+    <span class="hero-eyebrow">Southgate · London N14 · Near the Station</span>
+
+    <h1 class="hero-title">
+      Chunk<br><em>Of Green</em>
+    </h1>
+
+    <div>
+      <div class="hero-rating">
+        <span class="stars">★★★★★</span>
+        <strong style="color:var(--almond)">4.9</strong>
+        <span class="rating-text"><strong>35 reviews</strong> TripAdvisor</span>
+        <span class="rdiv"></span>
+        <span class="stars">★★★★★</span>
+        <strong style="color:var(--almond)">4.8</strong>
+        <span class="rating-text"><strong>Deliveroo</strong></span>
+        <span class="rdiv"></span>
+        <span class="rating-text" style="color:var(--sage)">🏆 Travellers' Choice</span>
+      </div>
+      <div class="hero-bottom">
+        <p class="hero-tagline">
+          Southgate's neighbourhood café — <strong>Allpress espresso</strong>,
+          British, Mediterranean &amp; Turkish brunch,
+          homemade cakes. Halal, vegan &amp; veggie friendly.
+        </p>
+        <a class="cta-circle" href="#menu">View<br>the Menu</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual" aria-hidden="true">
+    <!-- Tall left: real café coffee photo -->
+    <div class="hero-panel tall" id="panel0">
+      <img
+        src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80&auto=format&fit=crop"
+        alt="Flat white coffee in a cosy café"
+        loading="eager" fetchpriority="high"
+      />
+      <div class="live-chip" id="liveChip">
+        <span class="live-dot"></span>
+        <span id="liveLabel">Checking…</span>
+      </div>
+    </div>
+    <!-- Top right: brunch plate -->
+    <div class="hero-panel" id="panel1">
+      <img
+        src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80&auto=format&fit=crop"
+        alt="Full English brunch plate"
+        loading="eager" fetchpriority="high"
+      />
+      <div class="hero-badge">English Breakfast<br>£14.95</div>
+    </div>
+    <!-- Bottom right: homemade cakes -->
+    <div class="hero-panel" id="panel2">
+      <img
+        src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=600&q=80&auto=format&fit=crop"
+        alt="Homemade cakes and pastries"
+        loading="eager"
+      />
+      <div class="hero-badge">Homemade<br>Cakes Daily</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-inner">
+    <span>Allpress Espresso<em>·</em></span>
+    <span>Breakfast · Brunch · Lunch<em>·</em></span>
+    <span>Mediterranean &amp; Turkish<em>·</em></span>
+    <span>Halal Options<em>·</em></span>
+    <span>Vegan &amp; Vegetarian<em>·</em></span>
+    <span>Near Southgate Station<em>·</em></span>
+    <span>Homemade Cakes Daily<em>·</em></span>
+    <span>Mon–Fri 7am–4pm · Sat–Sun 8am–4pm<em>·</em></span>
+    <span>Travellers' Choice Award<em>·</em></span>
+    <span>4.9★ TripAdvisor · Top 18% London<em>·</em></span>
+    <span>Deliveroo &amp; Uber Eats<em>·</em></span>
+    <span>Walk-ins Welcome<em>·</em></span>
+    <span>Allpress Espresso<em>·</em></span>
+    <span>Breakfast · Brunch · Lunch<em>·</em></span>
+    <span>Mediterranean &amp; Turkish<em>·</em></span>
+    <span>Halal Options<em>·</em></span>
+    <span>Vegan &amp; Vegetarian<em>·</em></span>
+    <span>Near Southgate Station<em>·</em></span>
+    <span>Homemade Cakes Daily<em>·</em></span>
+    <span>Mon–Fri 7am–4pm · Sat–Sun 8am–4pm<em>·</em></span>
+    <span>Travellers' Choice Award<em>·</em></span>
+    <span>4.9★ TripAdvisor · Top 18% London<em>·</em></span>
+    <span>Deliveroo &amp; Uber Eats<em>·</em></span>
+    <span>Walk-ins Welcome<em>·</em></span>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<section id="reviews" class="reviews">
+  <div>
+    <h2 class="reviews-headline">What people<br>are <em>saying</em></h2>
+    <div class="score-block">
+      <span class="score-num">4.9</span>
+      <span class="score-meta">out of 5<br>TripAdvisor<br>35 reviews</span>
+    </div>
+    <div class="score-block" style="margin-top:12px">
+      <span class="score-num" style="font-size:3rem">4.8</span>
+      <span class="score-meta">out of 5<br>Deliveroo<br>61+ ratings</span>
+    </div>
+    <div class="ranking-badge">
+      🏆 &nbsp;#4,212 of 23,174<br>Restaurants in London
+    </div>
+  </div>
+  <div class="review-cards">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-quote">"Coffee could be the best around North London, served to perfection. Greeted with warmth from the owner Ozzy."</p>
+      <p class="review-author">Charles K.</p>
+      <p class="review-source">TripAdvisor · January 2024</p>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-quote">"The Mediterranean Breakfast was so fresh and tasty. The Chai Latte was possibly the best I've had. Friendly staff. Highly recommend."</p>
+      <p class="review-author">TripAdvisor Visitor</p>
+      <p class="review-source">TripAdvisor · Verified Review</p>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-quote">"A beautiful little café opposite Southgate Hotel. Value for money, staff very friendly. Just carry on doing what you're doing!"</p>
+      <p class="review-author">Maria N.</p>
+      <p class="review-source">TripAdvisor · May 2026</p>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-quote">"Coffee excellent. Cakes homemade and taste that way. Service — friendly, obliging and welcoming. Firing on all cylinders."</p>
+      <p class="review-author">TripAdvisor Visitor</p>
+      <p class="review-source">TripAdvisor · Early Review</p>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-quote">"Had the chargrilled chicken wrap and a dirty kofte wrap. Delicious food, great staff. A cool little place — I will definitely go back."</p>
+      <p class="review-author">TripAdvisor Visitor</p>
+      <p class="review-source">TripAdvisor · Verified Review</p>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-quote">"The Canadian breakfast was gorgeous, and the chicken Caesar salad was, and I quote, 'bloody lovely'. The spices gave it an unexpected lift."</p>
+      <p class="review-author">TripAdvisor Visitor</p>
+      <p class="review-source">TripAdvisor · Verified Review</p>
+    </div>
+  </div>
+</section>
+
+<!-- INFO STRIP -->
+<div class="info-strip">
+  <div class="info-cell">
+    <p class="info-cell-label">Address</p>
+    <p class="info-cell-value">25 Ashfield<br>Parade N14</p>
+    <p class="info-cell-sub">Southgate · Near the station &amp; Premier Inn</p>
+  </div>
+  <div class="info-cell">
+    <p class="info-cell-label">Opening Hours</p>
+    <p class="info-cell-value">7am – 4pm</p>
+    <p class="info-cell-sub">Mon–Fri · Sat–Sun 8am–4pm · Walk-ins welcome</p>
+  </div>
+  <div class="info-cell">
+    <p class="info-cell-label">Coffee</p>
+    <p class="info-cell-value">Allpress<br>Espresso</p>
+    <p class="info-cell-sub">Qualified Baristas · Full espresso bar</p>
+  </div>
+  <div class="info-cell">
+    <p class="info-cell-label">Rated</p>
+    <p class="info-cell-value">4.9 ★ / 4.8 ★</p>
+    <p class="info-cell-sub">TripAdvisor Top 18% London · Deliveroo 4.8</p>
+  </div>
+</div>
+
+<!-- MENU -->
+<section id="menu" class="menu-section">
+  <div class="section-eyebrow">The Full Menu</div>
+  <div class="menu-header">
+    <h2 class="section-title">Coffee.<br>Food.<br>Done Right.</h2>
+    <p class="menu-intro">Allpress espresso bar. British, Mediterranean &amp; Turkish. Halal, vegan &amp; veggie options throughout.</p>
+  </div>
+
+  <div class="menu-tabs" role="tablist">
+    <button class="menu-tab active" data-panel="coffee">Coffee</button>
+    <button class="menu-tab" data-panel="breakfast">Breakfast</button>
+    <button class="menu-tab" data-panel="ciabatta">Ciabattas</button>
+    <button class="menu-tab" data-panel="wraps">Wraps</button>
+    <button class="menu-tab" data-panel="mains">Mains &amp; Salads</button>
+    <button class="menu-tab" data-panel="cakes">Cakes &amp; Extras</button>
+  </div>
+
+  <!-- COFFEE -->
+  <div class="menu-panel active" id="panel-coffee">
+    <div class="ledger">
+      <div class="ledger-row category-head"><span class="category-label">Espresso Bar · Allpress Coffee</span></div>
+      <div class="ledger-row"><span class="item-name">Espresso</span><span class="item-note">Short, intense Allpress shot</span><span class="item-price">£1.80</span></div>
+      <div class="ledger-row"><span class="item-name">Americano</span><span class="item-note">Long black, clean and balanced</span><span class="item-price">£2.80</span></div>
+      <div class="ledger-row"><span class="item-name">Cappuccino</span><span class="item-note">Classic ratio, soft milk foam</span><span class="item-price">£3.20</span></div>
+      <div class="ledger-row"><span class="item-name">Latte</span><span class="item-note">Smooth, creamy everyday cup</span><span class="item-price">£3.50</span></div>
+      <div class="ledger-row"><span class="item-name">Flat White</span><span class="item-note">Velvety double-shot — most praised in reviews</span><span class="item-price">£4.00</span></div>
+      <div class="ledger-row"><span class="item-name">Chai Latte</span><span class="item-note">"Possibly the best I've had" — TripAdvisor</span><span class="item-price">Ask in store</span></div>
+      <div class="ledger-row"><span class="item-name">Ice Latte <span class="badge badge-pop">Popular</span></span><span class="item-note">Top-rated cold drink</span><span class="item-price">£4.95</span></div>
+      <div class="ledger-row category-head"><span class="category-label">Other Drinks</span></div>
+      <div class="ledger-row"><span class="item-name">Smoothie <span class="badge badge-vg">VG</span></span><span class="item-note">Freshly blended daily</span><span class="item-price">£4.95</span></div>
+    </div>
+  </div>
+
+  <!-- BREAKFAST -->
+  <div class="menu-panel" id="panel-breakfast">
+    <div class="ledger">
+      <div class="ledger-row category-head"><span class="category-label">Breakfast &amp; Brunch · Served All Day</span></div>
+      <div class="ledger-row"><span class="item-name">The English Breakfast <span class="badge badge-pop">Most Loved</span></span><span class="item-note">2 cumberland sausages, bacon, fried egg, mushroom, tomato, beans, 2 hash browns &amp; sourdough</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">Halal Choice <span class="badge badge-h">Halal</span></span><span class="item-note">2 beef sausages, 2 turkey bacon, fried egg, mushroom, tomato, beans, hash browns &amp; sourdough</span><span class="item-price">£13.95</span></div>
+      <div class="ledger-row"><span class="item-name">Mediterranean Breakfast</span><span class="item-note">Reviewers' favourite — fresh, flavourful, highly praised</span><span class="item-price">Ask in store</span></div>
+      <div class="ledger-row"><span class="item-name">Canadian Breakfast</span><span class="item-note">2 pancakes, fried egg, 2 bacon, 2 hash browns &amp; golden syrup</span><span class="item-price">£11.95</span></div>
+      <div class="ledger-row"><span class="item-name">Smoked Salmon Breakfast</span><span class="item-note">3 scrambled eggs, salad &amp; sourdough toast</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">Avocado Love <span class="badge badge-vg">V</span></span><span class="item-note">Smashed avo on sourdough — choice of poached egg, smoked salmon, bacon or halloumi</span><span class="item-price">£12.95</span></div>
+      <div class="ledger-row"><span class="item-name">The Acoustic Veggie <span class="badge badge-vg">V</span></span><span class="item-note">Smashed avo on sourdough, fried egg, grilled tomatoes, halloumi &amp; grilled peppers</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">The Veggie <span class="badge badge-vg">V</span></span><span class="item-note">Fried egg, vegan sausage, hash browns, mushroom, tomato, avocado, beans &amp; sourdough</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">The Vegan <span class="badge badge-vg">VG</span></span><span class="item-note">2 vegan sausages, hash browns, mushroom, tomato, avocado, beans &amp; sourdough</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">Shakshouka <span class="badge badge-vg">V</span></span><span class="item-note">2 poached eggs on homemade tomato, onion &amp; pepper sauce with Turkish bread or sourdough</span><span class="item-price">£12.95</span></div>
+      <div class="ledger-row"><span class="item-name">3 Egg Omelette</span><span class="item-note">Choose 3 toppings. Served with chips or salad</span><span class="item-price">£11.95</span></div>
+      <div class="ledger-row"><span class="item-name">Organic Porridge <span class="badge badge-vg">V</span></span><span class="item-note">Fruits, mixed nuts, honey &amp; choice of milk</span><span class="item-price">£11.95</span></div>
+      <div class="ledger-row"><span class="item-name">Lighter Morning</span><span class="item-note">Sausage, bacon, egg, mushroom, tomato, beans &amp; sourdough — no hash browns</span><span class="item-price">£11.95</span></div>
+    </div>
+  </div>
+
+  <!-- CIABATTAS -->
+  <div class="menu-panel" id="panel-ciabatta">
+    <div class="ledger">
+      <div class="ledger-row category-head"><span class="category-label">Freshly Made Ciabattas</span></div>
+      <div class="ledger-row"><span class="item-name">Chicken Escalope</span><span class="item-note">Mozzarella, crispy bacon &amp; pickled gherkins</span><span class="item-price">£11.95</span></div>
+      <div class="ledger-row"><span class="item-name">Homemade Salt Beef</span><span class="item-note">Emmental, gherkin &amp; English mustard</span><span class="item-price">£13.95</span></div>
+      <div class="ledger-row"><span class="item-name">The New York Melt</span><span class="item-note">Pastrami, emmental, gherkins &amp; English mustard</span><span class="item-price">£11.95</span></div>
+      <div class="ledger-row"><span class="item-name">Honey Roasted Ham</span><span class="item-note">Mozzarella &amp; tomato</span><span class="item-price">£11.45</span></div>
+      <div class="ledger-row"><span class="item-name">Halloumi Ciabatta <span class="badge badge-vg">V</span></span><span class="item-note">Grilled halloumi, black olive purée &amp; tomato</span><span class="item-price">£11.45</span></div>
+      <div class="ledger-row"><span class="item-name">Sun Dried Tomato <span class="badge badge-vg">V</span></span><span class="item-note">Roasted aubergine, courgette &amp; peppers, sun dried tomato paste &amp; halloumi</span><span class="item-price">£11.45</span></div>
+    </div>
+  </div>
+
+  <!-- WRAPS -->
+  <div class="menu-panel" id="panel-wraps">
+    <div class="ledger">
+      <div class="ledger-row category-head"><span class="category-label">Wraps</span></div>
+      <div class="ledger-row"><span class="item-name">Grilled Chicken Wrap <span class="badge badge-pop">Popular</span></span><span class="item-note">Bell peppers, crunchy lettuce, red onions &amp; mozzarella</span><span class="item-price">£10.25</span></div>
+      <div class="ledger-row"><span class="item-name">Famous Wrap</span><span class="item-note">Grilled chicken, tomato, red onion, parsley, chunk-style potatoes, mustard &amp; chunk sauce</span><span class="item-price">£11.95</span></div>
+      <div class="ledger-row"><span class="item-name">Avocado Wrap</span><span class="item-note">Smashed avocado, grilled chicken, crunchy lettuce &amp; tomato</span><span class="item-price">£11.45</span></div>
+      <div class="ledger-row"><span class="item-name">Chef's Wrap <span class="badge badge-vg">V</span></span><span class="item-note">Smashed avo, grilled halloumi, lettuce, tomato, homemade chilli sauce &amp; mayo</span><span class="item-price">£10.95</span></div>
+      <div class="ledger-row"><span class="item-name">Chunk's Wrap <span class="badge badge-vg">V</span></span><span class="item-note">Grilled halloumi, hummus, grilled veg &amp; crunchy lettuce</span><span class="item-price">£10.95</span></div>
+      <div class="ledger-row"><span class="item-name">Healthy Wrap <span class="badge badge-vg">VG</span></span><span class="item-note">Hummus, red onion, red kidney beans &amp; grilled veg</span><span class="item-price">£10.95</span></div>
+      <div class="ledger-row"><span class="item-name">Vegan Falafel Wrap <span class="badge badge-vg">VG</span></span><span class="item-note">Crunchy lettuce, fresh mint, tomatoes &amp; hummus</span><span class="item-price">£10.95</span></div>
+    </div>
+  </div>
+
+  <!-- MAINS & SALADS -->
+  <div class="menu-panel" id="panel-mains">
+    <div class="ledger">
+      <div class="ledger-row category-head"><span class="category-label">Mains</span></div>
+      <div class="ledger-row"><span class="item-name">Grilled Chicken</span><span class="item-note">Sliced avocado, side salad, rice or chips</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">Jacket Potato <span class="badge badge-pop">Popular</span></span><span class="item-note">Chilli &amp; cheese, chicken &amp; cheese, or bolognese &amp; cheese. With salad &amp; coleslaw</span><span class="item-price">£12.95</span></div>
+      <div class="ledger-row"><span class="item-name">Penne Pasta</span><span class="item-note">Chicken &amp; crispy bacon in creamy pesto sauce</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">Homemade Beef Burger</span><span class="item-note">Mixed leaves, pickled gherkins, red onion. Served with chips</span><span class="item-price">£13.45</span></div>
+      <div class="ledger-row"><span class="item-name">Grilled Chicken Burger</span><span class="item-note">Mixed leaf, tomatoes &amp; mayo. Served with chips</span><span class="item-price">£13.45</span></div>
+      <div class="ledger-row"><span class="item-name">Chunk's Hot Chicken <span class="badge badge-new">New</span></span><span class="item-note">Crispy, juicy homemade tender chicken burger</span><span class="item-price">Ask in store</span></div>
+      <div class="ledger-row"><span class="item-name">Moving Mountains Burger <span class="badge badge-vg">VG</span></span><span class="item-note">Vegan brioche bun, red onions, mix leaf, tomato &amp; gherkins. Served with chips</span><span class="item-price">£13.45</span></div>
+      <div class="ledger-row category-head"><span class="category-label">Salads</span></div>
+      <div class="ledger-row"><span class="item-name">Caesar Salad</span><span class="item-note">Leaves, cherry tomatoes, cucumbers, croutons, grilled chicken &amp; Caesar dressing</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">Avocado Salad</span><span class="item-note">Leaves, cherry tomatoes, avocado, beetroot, grilled chicken &amp; dressing</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">Salmon Salad</span><span class="item-note">Leaves, tomatoes, cucumber, smoked salmon, toasted wholemeal pita &amp; dressing</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">Halloumi Salad <span class="badge badge-vg">V</span></span><span class="item-note">Leaves, tomatoes, olives, red cabbage, grilled halloumi &amp; dressing</span><span class="item-price">£14.95</span></div>
+    </div>
+  </div>
+
+  <!-- CAKES & EXTRAS -->
+  <div class="menu-panel" id="panel-cakes">
+    <div class="ledger">
+      <div class="ledger-row category-head"><span class="category-label">Homemade Cakes &amp; Bakes</span></div>
+      <div class="ledger-row"><span class="item-name">Banana Bread</span><span class="item-note">Baked in-house daily</span><span class="item-price">£2.90</span></div>
+      <div class="ledger-row"><span class="item-name">Carrot Cake</span><span class="item-note">Acclaimed by reviewers — changes seasonally</span><span class="item-price">Ask in store</span></div>
+      <div class="ledger-row"><span class="item-name">Croissant</span><span class="item-note">Buttery pastry — mornings only</span><span class="item-price">£2.50</span></div>
+      <div class="ledger-row"><span class="item-name">Cookies</span><span class="item-note">Perfect coffee-side ritual</span><span class="item-price">£1.50</span></div>
+      <div class="ledger-row category-head"><span class="category-label">Extras &amp; Sides</span></div>
+      <div class="ledger-row"><span class="item-name">Chips</span><span class="item-note"></span><span class="item-price">£3.50</span></div>
+      <div class="ledger-row"><span class="item-name">Avocado</span><span class="item-note">Add to any dish</span><span class="item-price">£3.50</span></div>
+      <div class="ledger-row"><span class="item-name">Two Poached Eggs</span><span class="item-note">Free-range British eggs</span><span class="item-price">£3.95</span></div>
+      <div class="ledger-row"><span class="item-name">Halloumi</span><span class="item-note">Three slices</span><span class="item-price">£4.00</span></div>
+      <div class="ledger-row"><span class="item-name">Smoked Salmon</span><span class="item-note"></span><span class="item-price">£4.00</span></div>
+      <div class="ledger-row"><span class="item-name">Sucuk</span><span class="item-note">Turkish sausage</span><span class="item-price">£3.50</span></div>
+      <div class="ledger-row"><span class="item-name">Cumberland Sausage</span><span class="item-note"></span><span class="item-price">£2.50</span></div>
+      <div class="ledger-row"><span class="item-name">Bacon</span><span class="item-note"></span><span class="item-price">£2.50</span></div>
+      <div class="ledger-row"><span class="item-name">Portobello Mushroom</span><span class="item-note"></span><span class="item-price">£2.50</span></div>
+      <div class="ledger-row"><span class="item-name">Sourdough Toast</span><span class="item-note"></span><span class="item-price">£2.50</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section id="visit" class="visit">
+  <div class="visit-shell">
+    <div class="visit-info">
+      <div>
+        <div class="section-eyebrow" style="color:var(--sage)">Find Us</div>
+        <h2>The Sanctuary<br>Awaits</h2>
+        <div class="visit-lines">
+          <p>25 Ashfield Parade<br>Southgate, London N14 5EH</p>
+          <p>Mon–Fri: 7:00am – 4:00pm<br>Sat–Sun: 8:00am – 4:00pm<br><span style="font-size:.85em;opacity:.55">Walk-ins welcome · No reservation needed</span></p>
+          <p>
+            <a href="tel:+442083516126">0208 351 6126</a><br>
+            <a href="mailto:chunkofgreen@gmail.com">chunkofgreen@gmail.com</a>
+          </p>
+        </div>
+        <div class="amenities">
+          <span class="amenity">♿ Wheelchair Accessible</span>
+          <span class="amenity">🪑 Highchairs</span>
+          <span class="amenity">🥗 Vegan Options</span>
+          <span class="amenity">🌙 Halal Available</span>
+          <span class="amenity">📦 Takeaway</span>
+          <span class="amenity">🛎 Table Service</span>
+        </div>
+        <div class="delivery-row">
+          <span class="delivery-badge">🛵 Deliveroo</span>
+          <span class="delivery-badge">🚴 Uber Eats</span>
+        </div>
+      </div>
+      <div class="visit-actions">
+        <a class="btn btn-light" href="https://www.google.com/maps/search/?api=1&query=Chunk+Of+Green+Cafe+25+Ashfield+Parade+Southgate+London+N14+5EH" target="_blank" rel="noopener">Open in Maps</a>
+        <a class="btn btn-outline" href="https://www.instagram.com/chunkofgreen/" target="_blank" rel="noopener">@chunkofgreen</a>
+        <a class="btn btn-outline" href="https://www.tripadvisor.com/Restaurant_Review-g186338-d13912996-Reviews-Chunk_Of_Green_Cafe-London_England.html" target="_blank" rel="noopener">TripAdvisor 4.9 ★</a>
+      </div>
+    </div>
+    <div class="visit-visual">
+      <img
+        src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=1200&q=80&auto=format&fit=crop"
+        alt="Warm cosy café interior"
+        loading="lazy"
+      />
+      <div class="visit-overlay">
+        <blockquote>"A delightful experience from start to finish."</blockquote>
+        <cite>Charles K. · TripAdvisor 5★ · Jan 2024</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <span>© 2026 Chunk Of Green Cafe · Southgate N14</span>
+  <div class="footer-right">
+    <a href="tel:+442083516126">0208 351 6126</a>
+    <a href="https://www.instagram.com/chunkofgreen/" target="_blank" rel="noopener">Instagram</a>
+    <a href="mailto:chunkofgreen@gmail.com">Email Us</a>
+  </div>
+</footer>
+
+<script>
+/* ── Sticky nav ── */
+const nav = document.getElementById('nav');
+const onScroll = () => nav.classList.toggle('scrolled', scrollY > 50);
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+/* ── Burger / mobile menu ── */
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+let menuOpen = false;
+
+function toggleMenu(state) {
+  menuOpen = state ?? !menuOpen;
+  burger.classList.toggle('open', menuOpen);
+  burger.setAttribute('aria-expanded', menuOpen);
+  mobileMenu.style.display = menuOpen ? 'flex' : 'none';
+  requestAnimationFrame(() => mobileMenu.classList.toggle('open', menuOpen));
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
+}
+
+burger.addEventListener('click', () => toggleMenu());
+mobileMenu.querySelectorAll('.m-link').forEach(a =>
+  a.addEventListener('click', () => toggleMenu(false))
+);
+document.addEventListener('keydown', e => { if(e.key==='Escape' && menuOpen) toggleMenu(false) });
+
+/* ── Live open/closed ── */
+function updateStatus() {
+  const chip = document.getElementById('liveChip');
+  const label = document.getElementById('liveLabel');
+  if (!chip || !label) return;
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone:'Europe/London', weekday:'short',
+    hour:'numeric', minute:'numeric', hour12:false
+  }).formatToParts(new Date());
+  const day  = parts.find(p=>p.type==='weekday').value;
+  const h    = +parts.find(p=>p.type==='hour').value;
+  const m    = +parts.find(p=>p.type==='minute').value;
+  const mins = h*60+m;
+  const wknd = ['Sat','Sun'].includes(day);
+  const isOpen = mins >= (wknd?480:420) && mins < 960; /* 7/8am → 4pm */
+  chip.classList.toggle('closed', !isOpen);
+  label.textContent = isOpen ? 'Open now' : 'Closed';
+}
+updateStatus();
+
+/* ── Menu tabs ── */
+document.querySelectorAll('.menu-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    const panel = document.getElementById('panel-' + tab.dataset.panel);
+    if (panel) panel.classList.add('active');
+  });
+});
+
+/* ── Parallax (desktop only, respects prefers-reduced-motion) ── */
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isMobile = () => window.innerWidth <= 768;
+
+if (!prefersReduced) {
+  const panels = [
+    document.getElementById('panel0'),
+    document.getElementById('panel1'),
+    document.getElementById('panel2'),
+  ];
+  const rates = [0.05, 0.08, 0.065];
+
+  windowa.addEventListener('scroll', () => {
+    if (isMobile()) return;
+    const y = scrollY;
+    panels.forEach((panel, i) => {
+      if (!panel) return;
+      const img = panel.querySelector('img');
+      if (img) img.style.transform = `translateY(${y * rates[i]}px)`;
+    });
+  }, {passive:true});
+}
+</script>
+</body>
+</html>
