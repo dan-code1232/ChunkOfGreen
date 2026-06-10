@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Chunk Of Green Cafe | Speciality Coffee & Brunch · Southgate London N14</title>
-<meta name="description" content="Chunk Of Green is Southgate's neighbourhood café. Allpress espresso, full English, eggs, grilled chicken, homemade cakes. Halal, vegan & GF friendly. Mon–Fri 7am–4pm · 25 Ashfield Parade N14 5EH."/>
+<title>Chunk Of Green Cafe | Speciality Coffee &amp; Brunch · Southgate London N14</title>
+<meta name="description" content="Chunk Of Green is Southgate's neighbourhood café. Allpress espresso, full English, eggs, grilled chicken, homemade cakes. Halal, vegan &amp; GF friendly. Mon–Fri 7am–4pm · 25 Ashfield Parade N14 5EH."/>
 
 <!-- OpenGraph -->
 <meta property="og:type" content="restaurant"/>
@@ -26,6 +26,8 @@
   "@context": "https://schema.org",
   "@type": "CafeOrCoffeeShop",
   "name": "Chunk Of Green Cafe",
+  "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&q=80",
+  "url": "https://chunkofgreen.co.uk",
   "telephone": "+442083516126",
   "email": "chunkofgreen@gmail.com",
   "address": {
@@ -36,21 +38,32 @@
     "postalCode": "N14 5EH",
     "addressCountry": "GB"
   },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 51.6320,
+    "longitude": -0.1278
+  },
   "openingHoursSpecification": [
     {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"07:00","closes":"16:00"},
     {"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday","Sunday"],"opens":"08:00","closes":"16:00"}
   ],
   "servesCuisine": ["British","Mediterranean","Turkish"],
   "priceRange": "££",
+  "hasMenu": "https://chunkofgreen.co.uk/#menu",
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "4.9",
     "reviewCount": "35",
     "bestRating": "5"
-  }
+  },
+  "sameAs": [
+    "https://www.instagram.com/chunkofgreen/",
+    "https://www.tripadvisor.com/Restaurant_Review-g186338-d13912996-Reviews-Chunk_Of_Green_Cafe-London_England.html"
+  ]
 }
 </script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
@@ -69,10 +82,13 @@ body{
   background:var(--almond);color:var(--moss);
   line-height:1.6;overflow-x:hidden;
 }
+/* bottom bar clearance on mobile */
 @media(max-width:768px){body{padding-bottom:72px}}
+
 a{color:inherit;text-decoration:none}
 button{cursor:pointer;border:none;background:none;font:inherit}
 
+/* ── NAV ── */
 .nav{
   position:fixed;top:0;left:0;width:100%;
   padding:22px 5vw;
@@ -87,7 +103,7 @@ button{cursor:pointer;border:none;background:none;font:inherit}
   padding:13px 5vw;border-color:var(--line);
 }
 .nav-logo{
-  font-family:'Instrument Serif',serif;font-size:1.15rem;
+  font-family:'Instrument Serif',serif;font-size:1.15rem;letter-spacing:-.01em;
   color:var(--almond);transition:color .5s;
 }
 .nav.scrolled .nav-logo{color:var(--moss)}
@@ -106,23 +122,25 @@ button{cursor:pointer;border:none;background:none;font:inherit}
 }
 .nav-cta:hover{background:var(--moss);transform:translateY(-2px)}
 
+/* hamburger */
 .nav-burger{
-  display:none;flex-direction:column;gap:5px;width:28px;padding:4px;
+  display:none;flex-direction:column;gap:5px;
+  width:28px;padding:4px;
 }
 .nav-burger span{
-  display:block;height:2px;border-radius:2px;background:var(--almond);
-  transition:background .5s,transform .35s var(--ease),opacity .25s;
+  display:block;height:2px;border-radius:2px;
+  background:var(--almond);
+  transition:background .5s, transform .35s var(--ease), opacity .25s;
 }
 .nav.scrolled .nav-burger span{background:var(--moss)}
-.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.nav-burger.open span:nth-child(2){opacity:0}
-.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
+/* mobile menu — CSS-only open toggle, no inline style hacks */
 .mobile-menu{
   position:fixed;inset:0;z-index:190;
   background:var(--deep);
   display:flex;flex-direction:column;justify-content:center;align-items:center;gap:32px;
-  visibility:hidden;opacity:0;transform:translateY(-12px);
+  visibility:hidden;opacity:0;
+  transform:translateY(-12px);
   transition:opacity .4s var(--ease),transform .4s var(--ease),visibility 0s .4s;
   pointer-events:none;
 }
@@ -131,13 +149,20 @@ button{cursor:pointer;border:none;background:none;font:inherit}
   transition:opacity .4s var(--ease),transform .4s var(--ease),visibility 0s 0s;
   pointer-events:auto;
 }
+/* burger animation driven purely by class on the button */
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-burger.open span:nth-child(2){opacity:0}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
 .mobile-menu a{
   font-family:'Instrument Serif',serif;
   font-size:clamp(2.4rem,9vw,4rem);
-  color:var(--almond);transition:color .25s;
+  color:var(--almond);letter-spacing:-.02em;
+  transition:color .25s;
 }
 .mobile-menu a:hover{color:var(--sage)}
 
+/* ── HERO ── */
 .hero{
   position:relative;min-height:100svh;
   display:grid;grid-template-columns:1fr 1fr;
@@ -159,7 +184,8 @@ button{cursor:pointer;border:none;background:none;font:inherit}
   font-family:'Instrument Serif',serif;font-weight:400;
   font-size:clamp(4.2rem,10vw,11rem);
   line-height:.85;letter-spacing:-.05em;
-  text-transform:uppercase;color:var(--almond);margin:auto 0;
+  text-transform:uppercase;color:var(--almond);
+  margin:auto 0;
 }
 .hero-title em{
   display:block;margin-left:.45em;font-style:italic;
@@ -174,6 +200,7 @@ button{cursor:pointer;border:none;background:none;font:inherit}
 .rating-text strong{color:var(--almond)}
 .rdiv{width:1px;height:14px;background:rgba(255,255,255,.15);flex-shrink:0}
 
+/* hero CTA row */
 .hero-cta-row{
   display:flex;align-items:center;gap:12px;flex-wrap:wrap;
   padding-top:18px;padding-bottom:4px;
@@ -209,6 +236,7 @@ button{cursor:pointer;border:none;background:none;font:inherit}
 }
 .cta-circle:hover{background:var(--almond);color:var(--moss);transform:scale(1.08) rotate(9deg)}
 
+/* ── MOSAIC ── */
 .hero-visual{
   position:relative;z-index:1;
   display:grid;grid-template-rows:1fr 1fr;grid-template-columns:1fr 1fr;
@@ -217,7 +245,8 @@ button{cursor:pointer;border:none;background:none;font:inherit}
 .hero-panel{position:relative;overflow:hidden}
 .hero-panel img{
   width:100%;height:100%;object-fit:cover;
-  filter:brightness(.82) saturate(1.15);will-change:transform;transition:filter .6s;
+  filter:brightness(.82) saturate(1.15);will-change:transform;
+  transition:filter .6s;
 }
 .hero-panel:hover img{filter:brightness(.93) saturate(1.2)}
 .hero-panel.tall{grid-row:span 2}
@@ -246,6 +275,7 @@ button{cursor:pointer;border:none;background:none;font:inherit}
 .live-chip.closed .live-dot{background:#D98B6B;box-shadow:0 0 0 4px rgba(217,139,107,.2);animation:none}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(159,232,112,.2)}50%{box-shadow:0 0 0 8px rgba(159,232,112,.04)}}
 
+/* ── TICKER ── */
 .ticker-wrap{
   background:var(--moss);color:var(--almond);
   overflow:hidden;white-space:nowrap;padding:13px 0;
@@ -256,29 +286,34 @@ button{cursor:pointer;border:none;background:none;font:inherit}
 .ticker-inner span em{font-style:normal;color:var(--sage);margin:0 6px}
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
+/* ── TRUST BAR ── */
 .trust-bar{
   display:grid;grid-template-columns:repeat(4,1fr);
-  gap:1px;background:var(--line);border-bottom:1px solid var(--line);
+  gap:1px;background:var(--line);
+  border-bottom:1px solid var(--line);
 }
 .trust-cell{
   background:var(--cream);
   padding:clamp(20px,3vw,36px) clamp(16px,2.5vw,28px);
   display:flex;align-items:flex-start;gap:14px;
 }
-.trust-icon{font-size:1.5rem;flex-shrink:0;margin-top:2px}
+.trust-icon{font-size:1.4rem;flex-shrink:0;margin-top:3px;color:var(--copper);width:28px;text-align:center}
 .trust-label{font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--copper);margin-bottom:4px}
 .trust-value{font-family:'Instrument Serif',serif;font-size:clamp(1.2rem,1.8vw,1.8rem);line-height:1.1;letter-spacing:-.02em}
 .trust-sub{font-size:.8rem;opacity:.55;margin-top:3px;line-height:1.4}
 
+/* ── ORDER ONLINE BANNER ── */
 .order-banner{
   background:var(--moss);
   padding:clamp(32px,5vw,52px) clamp(20px,5vw,60px);
-  display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;
+  display:flex;justify-content:space-between;align-items:center;gap:24px;
+  flex-wrap:wrap;
 }
 .order-banner-copy h3{
   font-family:'Instrument Serif',serif;
   font-size:clamp(1.8rem,3vw,3rem);
-  color:var(--almond);letter-spacing:-.03em;line-height:1;margin-bottom:8px;
+  color:var(--almond);letter-spacing:-.03em;line-height:1;
+  margin-bottom:8px;
 }
 .order-banner-copy p{font-size:.9rem;color:rgba(255,255,255,.6);max-width:400px}
 .order-btns{display:flex;gap:10px;flex-wrap:wrap}
@@ -292,6 +327,7 @@ button{cursor:pointer;border:none;background:none;font:inherit}
 .order-btn-deliveroo{background:#00CCBC;color:#fff}
 .order-btn-uber{background:#fff;color:#000}
 
+/* ── REVIEWS ── */
 .reviews{
   padding:clamp(48px,7vw,80px) clamp(20px,5vw,60px);
   display:grid;grid-template-columns:260px 1fr;gap:5vw;align-items:start;
@@ -322,6 +358,7 @@ button{cursor:pointer;border:none;background:none;font:inherit}
 .review-author{font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;opacity:.5}
 .review-source{font-size:.65rem;opacity:.35;text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
 
+/* ── INFO STRIP ── */
 .info-strip{
   display:grid;grid-template-columns:repeat(4,1fr);
   gap:1px;background:var(--line);
@@ -333,12 +370,14 @@ button{cursor:pointer;border:none;background:none;font:inherit}
 .info-cell-sub{font-size:.82rem;opacity:.52;margin-top:5px;line-height:1.4}
 .directions-link{
   display:inline-flex;align-items:center;gap:6px;
-  margin-top:10px;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  margin-top:10px;font-size:.72rem;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;
   color:var(--copper);border-bottom:1px solid rgba(74,103,65,.3);
   transition:border-color .3s;padding-bottom:1px;
 }
 .directions-link:hover{border-color:var(--copper)}
 
+/* ── MENU ── */
 .menu-section{padding:clamp(48px,7vw,80px) clamp(20px,5vw,60px);border-bottom:1px solid var(--line)}
 .section-eyebrow{
   display:flex;align-items:center;gap:12px;
@@ -365,7 +404,8 @@ button{cursor:pointer;border:none;background:none;font:inherit}
 .menu-panel.active{display:block}
 .ledger{border-top:1px solid var(--moss)}
 .ledger-row{
-  display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) 96px;
+  display:grid;
+  grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) 96px;
   gap:20px;padding:18px 0;
   border-bottom:1px solid var(--line);
   transition:padding .35s var(--ease),border-color .35s;cursor:default;
@@ -390,6 +430,7 @@ button{cursor:pointer;border:none;background:none;font:inherit}
 .badge-new{background:rgba(180,60,30,.1);color:#a03015}
 .badge-pop{background:rgba(180,140,50,.14);color:#7a6010}
 
+/* ── VISIT ── */
 .visit{padding:clamp(48px,7vw,80px) clamp(20px,5vw,60px)}
 .visit-shell{
   display:grid;grid-template-columns:.9fr 1.1fr;
@@ -451,6 +492,7 @@ button{cursor:pointer;border:none;background:none;font:inherit}
   font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.6;
 }
 
+/* ── FOOTER ── */
 .footer{
   padding:22px clamp(20px,5vw,60px);
   display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;
@@ -460,9 +502,18 @@ button{cursor:pointer;border:none;background:none;font:inherit}
 .footer-right{display:flex;gap:22px;flex-wrap:wrap}
 .footer a:hover{color:var(--copper)}
 
+/* FA icon sizing helpers */
+.hero-btn i, .btn i, .order-btn i, .directions-link i { font-size:.85em }
+.amenity i { font-size:.85em; opacity:.85 }
+.delivery-badge i { font-size:.9em }
+.ranking-badge i { color:var(--copper); font-size:.9em }
+.hero-btn i, .btn i { margin-right:1px }
+
+/* ── MOBILE BOTTOM BAR ── */
 .mobile-bar{
   display:none;
-  position:fixed;bottom:0;left:0;right:0;z-index:300;
+  position:fixed;bottom:0;left:0;right:0;
+  z-index:300;
   background:var(--moss);
   border-top:1px solid rgba(255,255,255,.1);
   grid-template-columns:repeat(3,1fr);
@@ -477,7 +528,7 @@ button{cursor:pointer;border:none;background:none;font:inherit}
   -webkit-tap-highlight-color:transparent;
 }
 .mobile-bar a:hover,.mobile-bar a:active{background:rgba(255,255,255,.08);color:var(--almond)}
-.mobile-bar .bar-icon{font-size:1.35rem;line-height:1}
+.mobile-bar .bar-icon{font-size:1.2rem;line-height:1;display:flex;align-items:center;justify-content:center;width:24px;height:24px}
 .mobile-bar a:nth-child(2){
   background:var(--copper);color:var(--almond);
   border-left:1px solid rgba(255,255,255,.1);
@@ -485,6 +536,7 @@ button{cursor:pointer;border:none;background:none;font:inherit}
 }
 .mobile-bar a:nth-child(2):hover{background:#5a7d50}
 
+/* ── RESPONSIVE ── */
 @media(max-width:1080px){
   .review-cards{grid-template-columns:1fr 1fr}
   .info-strip{grid-template-columns:repeat(2,1fr)}
@@ -493,25 +545,36 @@ button{cursor:pointer;border:none;background:none;font:inherit}
 @media(max-width:768px){
   .nav-links{display:none}
   .nav-burger{display:flex}
+
   .hero{grid-template-columns:1fr;min-height:100svh}
-  .hero-visual{order:-1;height:50vw;min-height:260px;grid-template-columns:1fr 1fr;grid-template-rows:1fr}
+  .hero-visual{
+    order:-1;height:50vw;min-height:260px;
+    grid-template-columns:1fr 1fr;grid-template-rows:1fr;
+  }
   .hero-panel.tall{grid-row:auto}
   .hero-copy{padding:76px 5vw 28px}
   .hero-bottom{flex-direction:column;align-items:flex-start}
   .cta-circle{display:none}
   .hero-title{font-size:clamp(3.6rem,15vw,6.5rem)}
+
   .reviews{grid-template-columns:1fr}
   .review-cards{grid-template-columns:1fr}
+
   .menu-header{grid-template-columns:1fr}
   .menu-intro{text-align:left;max-width:100%}
   .ledger-row{grid-template-columns:1fr auto;gap:10px}
   .item-note{display:none}
+
   .info-strip{grid-template-columns:1fr 1fr}
   .trust-bar{grid-template-columns:1fr 1fr}
+
   .visit-shell{grid-template-columns:1fr}
   .visit-visual{min-height:50vw;order:-1}
+
   .menu-tab{font-size:.62rem;padding:8px 9px 10px}
+
   .order-banner{flex-direction:column;align-items:flex-start}
+
   .mobile-bar{display:grid}
 }
 @media(max-width:480px){
@@ -524,9 +587,10 @@ button{cursor:pointer;border:none;background:none;font:inherit}
 </head>
 <body>
 
+<!-- NAV -->
 <header class="nav" id="nav">
   <a class="nav-logo" href="#top">Chunk Of Green</a>
-  <nav class="nav-links">
+  <nav class="nav-links" aria-label="Main navigation">
     <a href="#reviews">Reviews</a>
     <a href="#menu">Menu</a>
     <a href="#visit">Visit</a>
@@ -537,7 +601,8 @@ button{cursor:pointer;border:none;background:none;font:inherit}
   </button>
 </header>
 
-<div class="mobile-menu" id="mobileMenu">
+<!-- MOBILE DRAWER (CSS-driven, no inline style hacks) -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Site navigation">
   <a href="#reviews" class="m-link">Reviews</a>
   <a href="#menu" class="m-link">Menu</a>
   <a href="#visit" class="m-link">Visit</a>
@@ -545,7 +610,8 @@ button{cursor:pointer;border:none;background:none;font:inherit}
   <a href="https://www.instagram.com/chunkofgreen/" target="_blank" rel="noopener" class="m-link">Instagram</a>
 </div>
 
-<section class="hero" id="top">
+<!-- HERO -->
+<section class="hero" id="top" aria-label="Chunk Of Green Cafe hero">
   <div class="hero-copy">
     <span class="hero-eyebrow">Family-run · Southgate N14 · Near the Station</span>
     <h1 class="hero-title">Chunk<br><em>Of Green</em></h1>
@@ -563,13 +629,13 @@ button{cursor:pointer;border:none;background:none;font:inherit}
       </div>
       <div class="hero-cta-row">
         <a class="hero-btn hero-btn-primary" href="#menu">View Menu</a>
-        <a class="hero-btn hero-btn-ghost" href="tel:+442083516126">📞 Call Now</a>
-        <a class="hero-btn hero-btn-ghost" href="https://www.google.com/maps/search/?api=1&query=Chunk+Of+Green+Cafe+Southgate+N14" target="_blank" rel="noopener">📍 Directions</a>
+        <a class="hero-btn hero-btn-ghost" href="tel:+442083516126"><i class="fa-solid fa-phone"></i> Call Now</a>
+        <a class="hero-btn hero-btn-ghost" href="https://www.google.com/maps/search/?api=1&query=Chunk+Of+Green+Cafe+Southgate+N14" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> Directions</a>
       </div>
       <div class="hero-bottom">
         <p class="hero-tagline">
-          <strong>Allpress espresso</strong>, British & Mediterranean brunch,
-          homemade cakes — halal, vegan & veggie friendly.
+          <strong>Allpress espresso</strong>, British &amp; Mediterranean brunch,
+          homemade cakes — halal, vegan &amp; veggie friendly.
           <strong>Open 7am–4pm</strong> daily.
         </p>
         <a class="cta-circle" href="#menu">View<br>the Menu</a>
@@ -579,52 +645,66 @@ button{cursor:pointer;border:none;background:none;font:inherit}
 
   <div class="hero-visual" aria-hidden="true">
     <div class="hero-panel tall" id="panel0">
-      <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=700&q=75&auto=format&fit=crop" alt="Allpress flat white" loading="eager" fetchpriority="high"/>
-      <div class="live-chip" id="liveChip"><span class="live-dot"></span><span id="liveLabel">Checking…</span></div>
+      <img
+        src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=700&q=75&auto=format&fit=crop"
+        alt="Allpress flat white" loading="eager" fetchpriority="high"
+      />
+      <div class="live-chip" id="liveChip">
+        <span class="live-dot"></span>
+        <span id="liveLabel">Checking…</span>
+      </div>
     </div>
     <div class="hero-panel" id="panel1">
-      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=70&auto=format&fit=crop" alt="Full English brunch" loading="eager" fetchpriority="high"/>
+      <img
+        src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=70&auto=format&fit=crop"
+        alt="Full English brunch" loading="eager" fetchpriority="high"
+      />
       <div class="hero-badge">English Breakfast<br>£14.95</div>
     </div>
     <div class="hero-panel" id="panel2">
-      <img src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=500&q=70&auto=format&fit=crop" alt="Homemade cakes" loading="lazy"/>
+      <img
+        src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=500&q=70&auto=format&fit=crop"
+        alt="Homemade cakes" loading="lazy"
+      />
       <div class="hero-badge">Homemade<br>Cakes Daily</div>
     </div>
   </div>
 </section>
 
+<!-- TICKER -->
 <div class="ticker-wrap" aria-hidden="true">
   <div class="ticker-inner">
     <span>Allpress Espresso<em>·</em></span>
     <span>Breakfast · Brunch · Lunch<em>·</em></span>
-    <span>Mediterranean & Turkish<em>·</em></span>
+    <span>Mediterranean &amp; Turkish<em>·</em></span>
     <span>Halal Options<em>·</em></span>
-    <span>Vegan & Vegetarian<em>·</em></span>
-    <span>Family-Run · Near Southgate Station<em>·</em></span>
+    <span>Vegan &amp; Vegetarian<em>·</em></span>
+    <span>Family-Run Café · Near Southgate Station<em>·</em></span>
     <span>Homemade Cakes Daily<em>·</em></span>
     <span>Mon–Fri 7am–4pm · Sat–Sun 8am–4pm<em>·</em></span>
     <span>Travellers' Choice Award<em>·</em></span>
     <span>4.9★ TripAdvisor · Top 18% London<em>·</em></span>
-    <span>Deliveroo & Uber Eats<em>·</em></span>
-    <span>Walk-ins Welcome<em>·</em></span>
+    <span>Deliveroo &amp; Uber Eats<em>·</em></span>
+    <span>Walk-ins Welcome · No Booking Needed<em>·</em></span>
     <span>Allpress Espresso<em>·</em></span>
     <span>Breakfast · Brunch · Lunch<em>·</em></span>
-    <span>Mediterranean & Turkish<em>·</em></span>
+    <span>Mediterranean &amp; Turkish<em>·</em></span>
     <span>Halal Options<em>·</em></span>
-    <span>Vegan & Vegetarian<em>·</em></span>
-    <span>Family-Run · Near Southgate Station<em>·</em></span>
+    <span>Vegan &amp; Vegetarian<em>·</em></span>
+    <span>Family-Run Café · Near Southgate Station<em>·</em></span>
     <span>Homemade Cakes Daily<em>·</em></span>
     <span>Mon–Fri 7am–4pm · Sat–Sun 8am–4pm<em>·</em></span>
     <span>Travellers' Choice Award<em>·</em></span>
     <span>4.9★ TripAdvisor · Top 18% London<em>·</em></span>
-    <span>Deliveroo & Uber Eats<em>·</em></span>
-    <span>Walk-ins Welcome<em>·</em></span>
+    <span>Deliveroo &amp; Uber Eats<em>·</em></span>
+    <span>Walk-ins Welcome · No Booking Needed<em>·</em></span>
   </div>
 </div>
 
+<!-- TRUST BAR -->
 <div class="trust-bar">
   <div class="trust-cell">
-    <div class="trust-icon">☕</div>
+    <div class="trust-icon"><i class="fa-solid fa-mug-hot"></i></div>
     <div>
       <div class="trust-label">Coffee</div>
       <div class="trust-value">Allpress Espresso</div>
@@ -632,7 +712,7 @@ button{cursor:pointer;border:none;background:none;font:inherit}
     </div>
   </div>
   <div class="trust-cell">
-    <div class="trust-icon">🏆</div>
+    <div class="trust-icon"><i class="fa-solid fa-trophy"></i></div>
     <div>
       <div class="trust-label">Rated</div>
       <div class="trust-value">4.9★ TripAdvisor</div>
@@ -640,7 +720,7 @@ button{cursor:pointer;border:none;background:none;font:inherit}
     </div>
   </div>
   <div class="trust-cell">
-    <div class="trust-icon">🫶</div>
+    <div class="trust-icon"><i class="fa-solid fa-heart"></i></div>
     <div>
       <div class="trust-label">Family-Run</div>
       <div class="trust-value">Est. Southgate N14</div>
@@ -648,38 +728,44 @@ button{cursor:pointer;border:none;background:none;font:inherit}
     </div>
   </div>
   <div class="trust-cell">
-    <div class="trust-icon">🥗</div>
+    <div class="trust-icon"><i class="fa-solid fa-seedling"></i></div>
     <div>
       <div class="trust-label">For Everyone</div>
       <div class="trust-value">Halal · Vegan · GF</div>
-      <div class="trust-sub">British, Mediterranean & Turkish menu</div>
+      <div class="trust-sub">British, Mediterranean &amp; Turkish menu</div>
     </div>
   </div>
 </div>
 
+<!-- ORDER ONLINE BANNER -->
 <div class="order-banner">
   <div class="order-banner-copy">
     <h3>Order Online for Delivery</h3>
-    <p>Can't make it in? Get Chunk Of Green delivered straight to your door.</p>
+    <p>Can't make it in? Get Chunk Of Green delivered straight to your door via Deliveroo or Uber Eats.</p>
   </div>
   <div class="order-btns">
-    <a class="order-btn order-btn-deliveroo" href="https://deliveroo.co.uk/menu/london/southgate/chunk-of-green-cafe-ltf" target="_blank" rel="noopener">🛵 Order on Deliveroo</a>
-    <a class="order-btn order-btn-uber" href="https://www.ubereats.com/" target="_blank" rel="noopener">🚴 Order on Uber Eats</a>
+    <a class="order-btn order-btn-deliveroo" href="https://deliveroo.co.uk/menu/london/southgate/chunk-of-green-cafe-ltf" target="_blank" rel="noopener">
+      <i class="fa-solid fa-motorcycle"></i> Order on Deliveroo
+    </a>
+    <a class="order-btn order-btn-uber" href="https://www.ubereats.com/" target="_blank" rel="noopener">
+      <i class="fa-solid fa-bicycle"></i> Order on Uber Eats
+    </a>
   </div>
 </div>
 
+<!-- REVIEWS -->
 <section id="reviews" class="reviews">
   <div>
     <h2 class="reviews-headline">What people<br>are <em>saying</em></h2>
     <div class="score-block">
       <span class="score-num">4.9</span>
-      <span class="score-meta">out of 5<br>TripAdvisor · 35 reviews</span>
+      <span class="score-meta">out of 5<br>TripAdvisor<br>35 reviews</span>
     </div>
     <div class="score-block" style="margin-top:12px">
       <span class="score-num" style="font-size:2.8rem">4.8</span>
       <span class="score-meta">out of 5<br>Deliveroo · 61+ ratings</span>
     </div>
-    <div class="ranking-badge">🏆 #4,212 of 23,174<br>Restaurants in London</div>
+    <div class="ranking-badge"><i class="fa-solid fa-trophy"></i> #4,212 of 23,174<br>Restaurants in London</div>
   </div>
   <div class="review-cards">
     <div class="review-card">
@@ -689,7 +775,7 @@ button{cursor:pointer;border:none;background:none;font:inherit}
     </div>
     <div class="review-card">
       <div class="review-stars">★★★★★</div>
-      <p class="review-quote">"The Mediterranean Breakfast was so fresh and tasty. The Chai Latte was possibly the best I've had. Highly recommend."</p>
+      <p class="review-quote">"The Mediterranean Breakfast was so fresh and tasty. The Chai Latte was possibly the best I've had. Friendly staff. Highly recommend."</p>
       <p class="review-author">TripAdvisor Visitor</p><p class="review-source">Verified Review</p>
     </div>
     <div class="review-card">
@@ -699,12 +785,12 @@ button{cursor:pointer;border:none;background:none;font:inherit}
     </div>
     <div class="review-card">
       <div class="review-stars">★★★★★</div>
-      <p class="review-quote">"Coffee excellent. Cakes homemade and taste that way. Service friendly, obliging and welcoming. Firing on all cylinders."</p>
+      <p class="review-quote">"Coffee excellent. Cakes homemade and taste that way. Service — friendly, obliging and welcoming. Firing on all cylinders."</p>
       <p class="review-author">TripAdvisor Visitor</p><p class="review-source">Verified Review</p>
     </div>
     <div class="review-card">
       <div class="review-stars">★★★★★</div>
-      <p class="review-quote">"Had the chargrilled chicken wrap and a dirty kofte wrap. Delicious food, great staff. A cool little place — will definitely go back."</p>
+      <p class="review-quote">"Had the chargrilled chicken wrap and a dirty kofte wrap. Delicious food, great staff. A cool little place — I will definitely go back."</p>
       <p class="review-author">TripAdvisor Visitor</p><p class="review-source">Verified Review</p>
     </div>
     <div class="review-card">
@@ -715,12 +801,13 @@ button{cursor:pointer;border:none;background:none;font:inherit}
   </div>
 </section>
 
+<!-- INFO STRIP -->
 <div class="info-strip">
   <div class="info-cell">
     <p class="info-cell-label">Address</p>
     <p class="info-cell-value">25 Ashfield Parade N14</p>
-    <p class="info-cell-sub">Southgate · Near the station & Premier Inn</p>
-    <a class="directions-link" href="https://www.google.com/maps/search/?api=1&query=Chunk+Of+Green+Cafe+Southgate+N14" target="_blank" rel="noopener">↗ Get Directions</a>
+    <p class="info-cell-sub">Southgate · Near the station &amp; Premier Inn</p>
+    <a class="directions-link" href="https://www.google.com/maps/search/?api=1&query=Chunk+Of+Green+Cafe+Southgate+N14" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> Get Directions</a>
   </div>
   <div class="info-cell">
     <p class="info-cell-label">Opening Hours</p>
@@ -730,9 +817,9 @@ button{cursor:pointer;border:none;background:none;font:inherit}
   </div>
   <div class="info-cell">
     <p class="info-cell-label">Phone</p>
-    <p class="info-cell-value"><a href="tel:+442083516126">0208 351 6126</a></p>
+    <p class="info-cell-value"><a href="tel:+442083516126" style="border-bottom:1px solid var(--line)">0208 351 6126</a></p>
     <p class="info-cell-sub">Call ahead for large groups</p>
-    <a class="directions-link" href="tel:+442083516126">📞 Call Now</a>
+    <a class="directions-link" href="tel:+442083516126" style="margin-top:10px"><i class="fa-solid fa-phone"></i> Call Now</a>
   </div>
   <div class="info-cell">
     <p class="info-cell-label">Rated</p>
@@ -742,19 +829,20 @@ button{cursor:pointer;border:none;background:none;font:inherit}
   </div>
 </div>
 
+<!-- MENU -->
 <section id="menu" class="menu-section">
   <div class="section-eyebrow">The Full Menu</div>
   <div class="menu-header">
     <h2 class="section-title">Coffee.<br>Food.<br>Done Right.</h2>
-    <p class="menu-intro">Allpress espresso bar. British, Mediterranean & Turkish. Halal, vegan & veggie throughout.</p>
+    <p class="menu-intro">Allpress espresso bar. British, Mediterranean &amp; Turkish. Halal, vegan &amp; veggie options throughout.</p>
   </div>
-  <div class="menu-tabs">
+  <div class="menu-tabs" role="tablist">
     <button class="menu-tab active" data-panel="coffee">Coffee</button>
     <button class="menu-tab" data-panel="breakfast">Breakfast</button>
     <button class="menu-tab" data-panel="ciabatta">Ciabattas</button>
     <button class="menu-tab" data-panel="wraps">Wraps</button>
-    <button class="menu-tab" data-panel="mains">Mains & Salads</button>
-    <button class="menu-tab" data-panel="cakes">Cakes & Extras</button>
+    <button class="menu-tab" data-panel="mains">Mains &amp; Salads</button>
+    <button class="menu-tab" data-panel="cakes">Cakes &amp; Extras</button>
   </div>
 
   <div class="menu-panel active" id="panel-coffee">
@@ -764,7 +852,7 @@ button{cursor:pointer;border:none;background:none;font:inherit}
       <div class="ledger-row"><span class="item-name">Americano</span><span class="item-note">Long black, clean and balanced</span><span class="item-price">£2.80</span></div>
       <div class="ledger-row"><span class="item-name">Cappuccino</span><span class="item-note">Classic ratio, soft milk foam</span><span class="item-price">£3.20</span></div>
       <div class="ledger-row"><span class="item-name">Latte</span><span class="item-note">Smooth and creamy</span><span class="item-price">£3.50</span></div>
-      <div class="ledger-row"><span class="item-name">Flat White</span><span class="item-note">Velvety double-shot</span><span class="item-price">£4.00</span></div>
+      <div class="ledger-row"><span class="item-name">Flat White</span><span class="item-note">Velvety double-shot — most praised in reviews</span><span class="item-price">£4.00</span></div>
       <div class="ledger-row"><span class="item-name">Ice Latte <span class="badge badge-pop">Popular</span></span><span class="item-note">Top-rated cold drink</span><span class="item-price">£4.95</span></div>
       <div class="ledger-row"><span class="item-name">Chai Latte</span><span class="item-note">"Possibly the best I've had" — TripAdvisor</span><span class="item-price">Ask in store</span></div>
       <div class="ledger-row category-head"><span class="category-label">Other Drinks</span></div>
@@ -774,45 +862,45 @@ button{cursor:pointer;border:none;background:none;font:inherit}
 
   <div class="menu-panel" id="panel-breakfast">
     <div class="ledger">
-      <div class="ledger-row category-head"><span class="category-label">Breakfast & Brunch · Served All Day</span></div>
-      <div class="ledger-row"><span class="item-name">The English Breakfast <span class="badge badge-pop">Most Loved</span></span><span class="item-note">2 cumberland sausages, bacon, egg, mushroom, tomato, beans, 2 hash browns & sourdough</span><span class="item-price">£14.95</span></div>
-      <div class="ledger-row"><span class="item-name">Halal Choice <span class="badge badge-h">Halal</span></span><span class="item-note">2 beef sausages, 2 turkey bacon, egg, mushroom, tomato, beans, hash browns & sourdough</span><span class="item-price">£13.95</span></div>
-      <div class="ledger-row"><span class="item-name">Mediterranean Breakfast</span><span class="item-note">Reviewers' favourite</span><span class="item-price">Ask in store</span></div>
-      <div class="ledger-row"><span class="item-name">Canadian Breakfast</span><span class="item-note">2 pancakes, fried egg, 2 bacon, 2 hash browns & golden syrup</span><span class="item-price">£11.95</span></div>
-      <div class="ledger-row"><span class="item-name">Smoked Salmon Breakfast</span><span class="item-note">3 scrambled eggs, salad & sourdough</span><span class="item-price">£14.95</span></div>
-      <div class="ledger-row"><span class="item-name">Avocado Love <span class="badge badge-vg">V</span></span><span class="item-note">Smashed avo on sourdough — egg, salmon, bacon or halloumi</span><span class="item-price">£12.95</span></div>
-      <div class="ledger-row"><span class="item-name">The Acoustic Veggie <span class="badge badge-vg">V</span></span><span class="item-note">Smashed avo, fried egg, halloumi, grilled tomatoes & peppers on sourdough</span><span class="item-price">£14.95</span></div>
-      <div class="ledger-row"><span class="item-name">The Veggie <span class="badge badge-vg">V</span></span><span class="item-note">Fried egg, vegan sausage, hash browns, mushroom, tomato, avocado, beans & sourdough</span><span class="item-price">£14.95</span></div>
-      <div class="ledger-row"><span class="item-name">The Vegan <span class="badge badge-vg">VG</span></span><span class="item-note">2 vegan sausages, hash browns, mushroom, tomato, avocado, beans & sourdough</span><span class="item-price">£14.95</span></div>
-      <div class="ledger-row"><span class="item-name">Shakshouka <span class="badge badge-vg">V</span></span><span class="item-note">2 poached eggs on homemade tomato, onion & pepper sauce</span><span class="item-price">£12.95</span></div>
-      <div class="ledger-row"><span class="item-name">3 Egg Omelette</span><span class="item-note">Choose 3 toppings. Chips or salad</span><span class="item-price">£11.95</span></div>
-      <div class="ledger-row"><span class="item-name">Organic Porridge <span class="badge badge-vg">V</span></span><span class="item-note">Fruits, mixed nuts, honey & choice of milk</span><span class="item-price">£11.95</span></div>
-      <div class="ledger-row"><span class="item-name">Lighter Morning</span><span class="item-note">Sausage, bacon, egg, mushroom, tomato, beans & sourdough</span><span class="item-price">£11.95</span></div>
+      <div class="ledger-row category-head"><span class="category-label">Breakfast &amp; Brunch · Served All Day</span></div>
+      <div class="ledger-row"><span class="item-name">The English Breakfast <span class="badge badge-pop">Most Loved</span></span><span class="item-note">2 cumberland sausages, bacon, fried egg, mushroom, tomato, beans, 2 hash browns &amp; sourdough</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">Halal Choice <span class="badge badge-h">Halal</span></span><span class="item-note">2 beef sausages, 2 turkey bacon, egg, mushroom, tomato, beans, hash browns &amp; sourdough</span><span class="item-price">£13.95</span></div>
+      <div class="ledger-row"><span class="item-name">Mediterranean Breakfast</span><span class="item-note">Reviewers' favourite — fresh, flavourful, highly praised</span><span class="item-price">Ask in store</span></div>
+      <div class="ledger-row"><span class="item-name">Canadian Breakfast</span><span class="item-note">2 pancakes, fried egg, 2 bacon, 2 hash browns &amp; golden syrup</span><span class="item-price">£11.95</span></div>
+      <div class="ledger-row"><span class="item-name">Smoked Salmon Breakfast</span><span class="item-note">3 scrambled eggs, salad &amp; sourdough toast</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">Avocado Love <span class="badge badge-vg">V</span></span><span class="item-note">Smashed avo on sourdough — poached egg, smoked salmon, bacon or halloumi</span><span class="item-price">£12.95</span></div>
+      <div class="ledger-row"><span class="item-name">The Acoustic Veggie <span class="badge badge-vg">V</span></span><span class="item-note">Smashed avo, fried egg, grilled tomatoes, halloumi &amp; grilled peppers on sourdough</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">The Veggie <span class="badge badge-vg">V</span></span><span class="item-note">Fried egg, vegan sausage, hash browns, mushroom, tomato, avocado, beans &amp; sourdough</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">The Vegan <span class="badge badge-vg">VG</span></span><span class="item-note">2 vegan sausages, hash browns, mushroom, tomato, avocado, beans &amp; sourdough</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">Shakshouka <span class="badge badge-vg">V</span></span><span class="item-note">2 poached eggs on homemade tomato, onion &amp; pepper sauce — Turkish bread or sourdough</span><span class="item-price">£12.95</span></div>
+      <div class="ledger-row"><span class="item-name">3 Egg Omelette</span><span class="item-note">Choose 3 toppings. Served with chips or salad</span><span class="item-price">£11.95</span></div>
+      <div class="ledger-row"><span class="item-name">Organic Porridge <span class="badge badge-vg">V</span></span><span class="item-note">Fruits, mixed nuts, honey &amp; choice of milk</span><span class="item-price">£11.95</span></div>
+      <div class="ledger-row"><span class="item-name">Lighter Morning</span><span class="item-note">Sausage, bacon, egg, mushroom, tomato, beans &amp; sourdough — no hash browns</span><span class="item-price">£11.95</span></div>
     </div>
   </div>
 
   <div class="menu-panel" id="panel-ciabatta">
     <div class="ledger">
       <div class="ledger-row category-head"><span class="category-label">Freshly Made Ciabattas</span></div>
-      <div class="ledger-row"><span class="item-name">Chicken Escalope</span><span class="item-note">Mozzarella, crispy bacon & pickled gherkins</span><span class="item-price">£11.95</span></div>
-      <div class="ledger-row"><span class="item-name">Homemade Salt Beef</span><span class="item-note">Emmental, gherkin & English mustard</span><span class="item-price">£13.95</span></div>
-      <div class="ledger-row"><span class="item-name">The New York Melt</span><span class="item-note">Pastrami, emmental, gherkins & English mustard</span><span class="item-price">£11.95</span></div>
-      <div class="ledger-row"><span class="item-name">Honey Roasted Ham</span><span class="item-note">Mozzarella & tomato</span><span class="item-price">£11.45</span></div>
-      <div class="ledger-row"><span class="item-name">Halloumi Ciabatta <span class="badge badge-vg">V</span></span><span class="item-note">Grilled halloumi, black olive purée & tomato</span><span class="item-price">£11.45</span></div>
-      <div class="ledger-row"><span class="item-name">Sun Dried Tomato <span class="badge badge-vg">V</span></span><span class="item-note">Roasted veg, sun dried tomato paste & halloumi</span><span class="item-price">£11.45</span></div>
+      <div class="ledger-row"><span class="item-name">Chicken Escalope</span><span class="item-note">Mozzarella, crispy bacon &amp; pickled gherkins</span><span class="item-price">£11.95</span></div>
+      <div class="ledger-row"><span class="item-name">Homemade Salt Beef</span><span class="item-note">Emmental, gherkin &amp; English mustard</span><span class="item-price">£13.95</span></div>
+      <div class="ledger-row"><span class="item-name">The New York Melt</span><span class="item-note">Pastrami, emmental, gherkins &amp; English mustard</span><span class="item-price">£11.95</span></div>
+      <div class="ledger-row"><span class="item-name">Honey Roasted Ham</span><span class="item-note">Mozzarella &amp; tomato</span><span class="item-price">£11.45</span></div>
+      <div class="ledger-row"><span class="item-name">Halloumi Ciabatta <span class="badge badge-vg">V</span></span><span class="item-note">Grilled halloumi, black olive purée &amp; tomato</span><span class="item-price">£11.45</span></div>
+      <div class="ledger-row"><span class="item-name">Sun Dried Tomato <span class="badge badge-vg">V</span></span><span class="item-note">Roasted veg, sun dried tomato paste &amp; halloumi</span><span class="item-price">£11.45</span></div>
     </div>
   </div>
 
   <div class="menu-panel" id="panel-wraps">
     <div class="ledger">
       <div class="ledger-row category-head"><span class="category-label">Wraps</span></div>
-      <div class="ledger-row"><span class="item-name">Grilled Chicken Wrap <span class="badge badge-pop">Popular</span></span><span class="item-note">Bell peppers, crunchy lettuce, red onions & mozzarella</span><span class="item-price">£10.25</span></div>
-      <div class="ledger-row"><span class="item-name">Famous Wrap</span><span class="item-note">Grilled chicken, tomato, red onion, parsley, chunk potatoes, mustard & chunk sauce</span><span class="item-price">£11.95</span></div>
-      <div class="ledger-row"><span class="item-name">Avocado Wrap</span><span class="item-note">Smashed avocado, grilled chicken, crunchy lettuce & tomato</span><span class="item-price">£11.45</span></div>
-      <div class="ledger-row"><span class="item-name">Chef's Wrap <span class="badge badge-vg">V</span></span><span class="item-note">Smashed avo, grilled halloumi, lettuce, tomato, chilli sauce & mayo</span><span class="item-price">£10.95</span></div>
-      <div class="ledger-row"><span class="item-name">Chunk's Wrap <span class="badge badge-vg">V</span></span><span class="item-note">Grilled halloumi, hummus, grilled veg & crunchy lettuce</span><span class="item-price">£10.95</span></div>
-      <div class="ledger-row"><span class="item-name">Healthy Wrap <span class="badge badge-vg">VG</span></span><span class="item-note">Hummus, red onion, red kidney beans & grilled veg</span><span class="item-price">£10.95</span></div>
-      <div class="ledger-row"><span class="item-name">Vegan Falafel Wrap <span class="badge badge-vg">VG</span></span><span class="item-note">Crunchy lettuce, fresh mint, tomatoes & hummus</span><span class="item-price">£10.95</span></div>
+      <div class="ledger-row"><span class="item-name">Grilled Chicken Wrap <span class="badge badge-pop">Popular</span></span><span class="item-note">Bell peppers, crunchy lettuce, red onions &amp; mozzarella</span><span class="item-price">£10.25</span></div>
+      <div class="ledger-row"><span class="item-name">Famous Wrap</span><span class="item-note">Grilled chicken, tomato, red onion, parsley, chunk potatoes, mustard &amp; chunk sauce</span><span class="item-price">£11.95</span></div>
+      <div class="ledger-row"><span class="item-name">Avocado Wrap</span><span class="item-note">Smashed avocado, grilled chicken, crunchy lettuce &amp; tomato</span><span class="item-price">£11.45</span></div>
+      <div class="ledger-row"><span class="item-name">Chef's Wrap <span class="badge badge-vg">V</span></span><span class="item-note">Smashed avo, grilled halloumi, lettuce, tomato, homemade chilli sauce &amp; mayo</span><span class="item-price">£10.95</span></div>
+      <div class="ledger-row"><span class="item-name">Chunk's Wrap <span class="badge badge-vg">V</span></span><span class="item-note">Grilled halloumi, hummus, grilled veg &amp; crunchy lettuce</span><span class="item-price">£10.95</span></div>
+      <div class="ledger-row"><span class="item-name">Healthy Wrap <span class="badge badge-vg">VG</span></span><span class="item-note">Hummus, red onion, red kidney beans &amp; grilled veg</span><span class="item-price">£10.95</span></div>
+      <div class="ledger-row"><span class="item-name">Vegan Falafel Wrap <span class="badge badge-vg">VG</span></span><span class="item-note">Crunchy lettuce, fresh mint, tomatoes &amp; hummus</span><span class="item-price">£10.95</span></div>
     </div>
   </div>
 
@@ -820,28 +908,28 @@ button{cursor:pointer;border:none;background:none;font:inherit}
     <div class="ledger">
       <div class="ledger-row category-head"><span class="category-label">Mains</span></div>
       <div class="ledger-row"><span class="item-name">Grilled Chicken</span><span class="item-note">Sliced avocado, side salad, rice or chips</span><span class="item-price">£14.95</span></div>
-      <div class="ledger-row"><span class="item-name">Jacket Potato <span class="badge badge-pop">Popular</span></span><span class="item-note">Chilli & cheese, chicken & cheese, or bolognese. With salad & coleslaw</span><span class="item-price">£12.95</span></div>
-      <div class="ledger-row"><span class="item-name">Penne Pasta</span><span class="item-note">Chicken & crispy bacon in creamy pesto sauce</span><span class="item-price">£14.95</span></div>
-      <div class="ledger-row"><span class="item-name">Homemade Beef Burger</span><span class="item-note">Mixed leaves, pickled gherkins, red onion. With chips</span><span class="item-price">£13.45</span></div>
-      <div class="ledger-row"><span class="item-name">Grilled Chicken Burger</span><span class="item-note">Mixed leaf, tomatoes & mayo. With chips</span><span class="item-price">£13.45</span></div>
+      <div class="ledger-row"><span class="item-name">Jacket Potato <span class="badge badge-pop">Popular</span></span><span class="item-note">Chilli &amp; cheese, chicken &amp; cheese, or bolognese. With salad &amp; coleslaw</span><span class="item-price">£12.95</span></div>
+      <div class="ledger-row"><span class="item-name">Penne Pasta</span><span class="item-note">Chicken &amp; crispy bacon in creamy pesto sauce</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">Homemade Beef Burger</span><span class="item-note">Mixed leaves, pickled gherkins, red onion. Served with chips</span><span class="item-price">£13.45</span></div>
+      <div class="ledger-row"><span class="item-name">Grilled Chicken Burger</span><span class="item-note">Mixed leaf, tomatoes &amp; mayo. Served with chips</span><span class="item-price">£13.45</span></div>
       <div class="ledger-row"><span class="item-name">Chunk's Hot Chicken <span class="badge badge-new">New</span></span><span class="item-note">Crispy, juicy homemade tender chicken burger</span><span class="item-price">Ask in store</span></div>
-      <div class="ledger-row"><span class="item-name">Moving Mountains <span class="badge badge-vg">VG</span></span><span class="item-note">Vegan brioche bun, red onions, mix leaf, tomato & gherkins. With chips</span><span class="item-price">£13.45</span></div>
+      <div class="ledger-row"><span class="item-name">Moving Mountains <span class="badge badge-vg">VG</span></span><span class="item-note">Vegan brioche bun, red onions, mix leaf, tomato &amp; gherkins. With chips</span><span class="item-price">£13.45</span></div>
       <div class="ledger-row category-head"><span class="category-label">Salads</span></div>
-      <div class="ledger-row"><span class="item-name">Caesar Salad</span><span class="item-note">Leaves, cherry tomatoes, cucumbers, croutons, grilled chicken & Caesar dressing</span><span class="item-price">£14.95</span></div>
-      <div class="ledger-row"><span class="item-name">Avocado Salad</span><span class="item-note">Leaves, cherry tomatoes, avocado, beetroot, grilled chicken & dressing</span><span class="item-price">£14.95</span></div>
-      <div class="ledger-row"><span class="item-name">Salmon Salad</span><span class="item-note">Leaves, tomatoes, cucumber, smoked salmon, toasted pita & dressing</span><span class="item-price">£14.95</span></div>
-      <div class="ledger-row"><span class="item-name">Halloumi Salad <span class="badge badge-vg">V</span></span><span class="item-note">Leaves, tomatoes, olives, red cabbage, grilled halloumi & dressing</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">Caesar Salad</span><span class="item-note">Leaves, cherry tomatoes, cucumbers, croutons, grilled chicken &amp; Caesar dressing</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">Avocado Salad</span><span class="item-note">Leaves, cherry tomatoes, avocado, beetroot, grilled chicken &amp; dressing</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">Salmon Salad</span><span class="item-note">Leaves, tomatoes, cucumber, smoked salmon, toasted pita &amp; dressing</span><span class="item-price">£14.95</span></div>
+      <div class="ledger-row"><span class="item-name">Halloumi Salad <span class="badge badge-vg">V</span></span><span class="item-note">Leaves, tomatoes, olives, red cabbage, grilled halloumi &amp; dressing</span><span class="item-price">£14.95</span></div>
     </div>
   </div>
 
   <div class="menu-panel" id="panel-cakes">
     <div class="ledger">
-      <div class="ledger-row category-head"><span class="category-label">Homemade Cakes & Bakes</span></div>
+      <div class="ledger-row category-head"><span class="category-label">Homemade Cakes &amp; Bakes</span></div>
       <div class="ledger-row"><span class="item-name">Banana Bread</span><span class="item-note">Baked in-house daily</span><span class="item-price">£2.90</span></div>
-      <div class="ledger-row"><span class="item-name">Carrot Cake</span><span class="item-note">Changes seasonally</span><span class="item-price">Ask in store</span></div>
-      <div class="ledger-row"><span class="item-name">Croissant</span><span class="item-note">Mornings only</span><span class="item-price">£2.50</span></div>
+      <div class="ledger-row"><span class="item-name">Carrot Cake</span><span class="item-note">Acclaimed by reviewers — changes seasonally</span><span class="item-price">Ask in store</span></div>
+      <div class="ledger-row"><span class="item-name">Croissant</span><span class="item-note">Buttery pastry — mornings only</span><span class="item-price">£2.50</span></div>
       <div class="ledger-row"><span class="item-name">Cookies</span><span class="item-note">Perfect coffee-side ritual</span><span class="item-price">£1.50</span></div>
-      <div class="ledger-row category-head"><span class="category-label">Extras & Sides</span></div>
+      <div class="ledger-row category-head"><span class="category-label">Extras &amp; Sides</span></div>
       <div class="ledger-row"><span class="item-name">Chips</span><span class="item-note"></span><span class="item-price">£3.50</span></div>
       <div class="ledger-row"><span class="item-name">Avocado</span><span class="item-note">Add to any dish</span><span class="item-price">£3.50</span></div>
       <div class="ledger-row"><span class="item-name">Two Poached Eggs</span><span class="item-note">Free-range British eggs</span><span class="item-price">£3.95</span></div>
@@ -856,6 +944,7 @@ button{cursor:pointer;border:none;background:none;font:inherit}
   </div>
 </section>
 
+<!-- VISIT -->
 <section id="visit" class="visit">
   <div class="visit-shell">
     <div class="visit-info">
@@ -864,30 +953,33 @@ button{cursor:pointer;border:none;background:none;font:inherit}
         <h2>The Sanctuary<br>Awaits</h2>
         <div class="visit-lines">
           <p>25 Ashfield Parade<br>Southgate, London N14 5EH</p>
-          <p>Mon–Fri: 7:00am – 4:00pm<br>Sat–Sun: 8:00am – 4:00pm</p>
+          <p>Mon–Fri: 7:00am – 4:00pm<br>Sat–Sun: 8:00am – 4:00pm<br><span style="font-size:.84em;opacity:.5">Walk-ins welcome · No booking needed</span></p>
           <p><a href="tel:+442083516126">0208 351 6126</a><br><a href="mailto:chunkofgreen@gmail.com">chunkofgreen@gmail.com</a></p>
         </div>
         <div class="amenities">
-          <span class="amenity">♿ Wheelchair Accessible</span>
-          <span class="amenity">🪑 Highchairs</span>
-          <span class="amenity">🥗 Vegan</span>
-          <span class="amenity">🌙 Halal</span>
-          <span class="amenity">📦 Takeaway</span>
-          <span class="amenity">🛎 Table Service</span>
+          <span class="amenity"><i class="fa-solid fa-wheelchair"></i> Wheelchair Accessible</span>
+          <span class="amenity"><i class="fa-solid fa-baby"></i> Highchairs</span>
+          <span class="amenity"><i class="fa-solid fa-leaf"></i> Vegan</span>
+          <span class="amenity"><i class="fa-solid fa-moon"></i> Halal</span>
+          <span class="amenity"><i class="fa-solid fa-bag-shopping"></i> Takeaway</span>
+          <span class="amenity"><i class="fa-solid fa-bell-concierge"></i> Table Service</span>
         </div>
         <div class="delivery-row">
-          <span class="delivery-badge">🛵 Deliveroo</span>
-          <span class="delivery-badge">🚴 Uber Eats</span>
+          <span class="delivery-badge"><i class="fa-solid fa-motorcycle"></i> Deliveroo</span>
+          <span class="delivery-badge"><i class="fa-solid fa-bicycle"></i> Uber Eats</span>
         </div>
       </div>
       <div class="visit-actions">
-        <a class="btn btn-light" href="https://www.google.com/maps/search/?api=1&query=Chunk+Of+Green+Cafe+25+Ashfield+Parade+Southgate+London+N14+5EH" target="_blank" rel="noopener">↗ Open in Maps</a>
+        <a class="btn btn-light" href="https://www.google.com/maps/search/?api=1&query=Chunk+Of+Green+Cafe+25+Ashfield+Parade+Southgate+London+N14+5EH" target="_blank" rel="noopener"><i class="fa-solid fa-map-location-dot"></i> Open in Maps</a>
         <a class="btn btn-outline" href="https://www.instagram.com/chunkofgreen/" target="_blank" rel="noopener">@chunkofgreen</a>
         <a class="btn btn-outline" href="https://www.tripadvisor.com/Restaurant_Review-g186338-d13912996-Reviews-Chunk_Of_Green_Cafe-London_England.html" target="_blank" rel="noopener">TripAdvisor 4.9 ★</a>
       </div>
     </div>
     <div class="visit-visual">
-      <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=900&q=75&auto=format&fit=crop" alt="Warm cosy café interior" loading="lazy"/>
+      <img
+        src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=900&q=75&auto=format&fit=crop"
+        alt="Warm cosy café interior" loading="lazy"
+      />
       <div class="visit-overlay">
         <blockquote>"A delightful experience from start to finish."</blockquote>
         <cite>Charles K. · TripAdvisor 5★ · Jan 2024</cite>
@@ -896,6 +988,7 @@ button{cursor:pointer;border:none;background:none;font:inherit}
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer class="footer">
   <span>© 2026 Chunk Of Green Cafe · Family-run · Southgate N14</span>
   <div class="footer-right">
@@ -905,26 +998,30 @@ button{cursor:pointer;border:none;background:none;font:inherit}
   </div>
 </footer>
 
+<!-- MOBILE BOTTOM BAR -->
 <nav class="mobile-bar" aria-label="Quick actions">
   <a href="tel:+442083516126">
-    <span class="bar-icon">📞</span>Call Now
+    <span class="bar-icon"><i class="fa-solid fa-phone"></i></span>
+    Call Now
   </a>
   <a href="https://www.google.com/maps/search/?api=1&query=Chunk+Of+Green+Cafe+25+Ashfield+Parade+Southgate+London+N14+5EH" target="_blank" rel="noopener">
-    <span class="bar-icon">📍</span>Directions
+    <span class="bar-icon"><i class="fa-solid fa-location-dot"></i></span>
+    Directions
   </a>
   <a href="#menu">
-    <span class="bar-icon">🍽</span>View Menu
+    <span class="bar-icon"><i class="fa-solid fa-utensils"></i></span>
+    View Menu
   </a>
 </nav>
 
 <script>
-/* Sticky nav */
+/* ── Sticky nav ── */
 const nav = document.getElementById('nav');
 function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 50); }
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
-/* Burger / mobile menu */
+/* ── Mobile burger / drawer ── */
 const burger = document.getElementById('burger');
 const mobileMenu = document.getElementById('mobileMenu');
 let menuOpen = false;
@@ -942,7 +1039,7 @@ burger.addEventListener('click', () => setMenu(!menuOpen));
 mobileMenu.querySelectorAll('.m-link').forEach(a => a.addEventListener('click', () => setMenu(false)));
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && menuOpen) setMenu(false); });
 
-/* Live open/closed */
+/* ── Live open/closed (4pm close, corrected) ── */
 function updateStatus() {
   const chip = document.getElementById('liveChip');
   const label = document.getElementById('liveLabel');
@@ -956,17 +1053,19 @@ function updateStatus() {
     const h    = +parts.find(p => p.type === 'hour').value;
     const m    = +parts.find(p => p.type === 'minute').value;
     const mins = h * 60 + m;
-    const isWknd  = ['Sat', 'Sun'].includes(day);
-    const isOpen  = mins >= (isWknd ? 480 : 420) && mins < 960;
+    const isWknd = ['Sat', 'Sun'].includes(day);
+    const openMins  = isWknd ? 8 * 60 : 7 * 60;
+    const closeMins = 16 * 60; // 4pm
+    const isOpen = mins >= openMins && mins < closeMins;
     chip.classList.toggle('closed', !isOpen);
     label.textContent = isOpen ? 'Open now' : 'Closed';
-  } catch(e) {
+  } catch (e) {
     label.textContent = 'See hours';
   }
 }
 updateStatus();
 
-/* Menu tabs */
+/* ── Menu tabs ── */
 document.querySelectorAll('.menu-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
@@ -977,13 +1076,16 @@ document.querySelectorAll('.menu-tab').forEach(tab => {
   });
 });
 
-/* Parallax — desktop only, reduced-motion safe */
+/* ── Parallax — desktop only, reduced-motion safe ── */
 (function() {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const panels = ['panel0','panel1','panel2'].map(id => document.getElementById(id));
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) return;
+
+  const panels = ['panel0', 'panel1', 'panel2'].map(id => document.getElementById(id));
   const rates  = [0.05, 0.08, 0.065];
+
   function applyParallax() {
-    if (window.innerWidth <= 768) return;
+    if (window.innerWidth <= 768) return; // skip on mobile
     const y = window.scrollY;
     panels.forEach((panel, i) => {
       if (!panel) return;
@@ -991,6 +1093,7 @@ document.querySelectorAll('.menu-tab').forEach(tab => {
       if (img) img.style.transform = 'translateY(' + (y * rates[i]) + 'px)';
     });
   }
+
   window.addEventListener('scroll', applyParallax, { passive: true });
   window.addEventListener('resize', applyParallax, { passive: true });
 })();
